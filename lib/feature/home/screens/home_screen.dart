@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
+import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/more_list_widget.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
@@ -27,11 +28,8 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: const Text("ペットの里親お探し"),
         actions: [
-          Container(
-            margin: EdgeInsets.only(right: mq.width * .05),
-            child: const Badge(
-              child: Icon(Icons.notifications_none_outlined),
-            ),
+          CustomNotificationIcon(
+            onPressed: () {},
           ),
         ],
       ),
