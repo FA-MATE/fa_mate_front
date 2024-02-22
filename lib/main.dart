@@ -1,7 +1,7 @@
 import 'package:fa_mate_front/feature/home/screens/home_screen.dart';
 import 'package:fa_mate_front/route/router.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 late Size mq;
 

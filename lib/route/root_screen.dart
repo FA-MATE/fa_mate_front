@@ -4,7 +4,7 @@ import 'package:fa_mate_front/feature/mypage/screens/mypage_screen.dart';
 import 'package:fa_mate_front/feature/post/screens/post_screen.dart';
 import 'package:fa_mate_front/route/bottombar_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RootScreen extends ConsumerWidget {
   const RootScreen({super.key});

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
@@ -6,6 +9,7 @@ import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 List<Widget> dummyList = [
@@ -17,8 +21,49 @@ List<Widget> dummyList = [
   const TagWidget(title: "メス"),
 ];
 
-class HomeScreen extends StatelessWidget {
+List<String> bannerList = [
+  "assets/images/banners/banner_1.jpg",
+  "assets/images/banners/banner_2.jpg",
+  "assets/images/banners/banner_3.jpg",
+];
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  //PageviewController currentpage
+  int _currentPage = 0;
+  //Controller
+  final PageController _pageController = PageController();
+
+  //auto slideのためTimer定義
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      //periodic使用し5秒間隔で実行
+      _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+        _currentPage++;
+        _pageController.animateToPage(_currentPage,
+            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      });
+    });
+  }
+
+  //使わなくなるController、Timerを閉じる
+  @override
+  void dispose() {
+    super.dispose();
+    _currentPage = 0;
+    _pageController.dispose();
+    _timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                   top: 10,
                   bottom: 3,
                 ),
-                color: const Color(0xffD6AA32),
+                color: AppColors.searchBackground,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -54,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                       height: 32,
                       width: mq.width * .8,
                       decoration: BoxDecoration(
-                        color: const Color(0xffF2F4F6),
+                        color: AppColors.search,
                         borderRadius: BorderRadius.circular(24),
                       ),
                       child: const Text("検索"),
@@ -73,14 +118,57 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Gap(mq.height * .01),
-            SizedBox(
-              width: double.infinity,
-              height: mq.height * .15,
-              child: CachedNetworkImage(
-                imageUrl: "https://source.unsplash.com/random/500x500",
-                fit: BoxFit.cover,
-              ),
+            Gap(mq.height * .005),
+            Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: mq.height * .15,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        _currentPage = value;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        child: Image.asset(
+                          bannerList[index % bannerList.length],
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: mq.width / 2,
+                  child: SizedBox(
+                    width: mq.width * .1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: bannerList
+                          .asMap()
+                          .entries
+                          .map(
+                            (e) => Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color:
+                                    e.key == (_currentPage % bannerList.length)
+                                        ? Colors.amber
+                                        : Colors.grey.shade600,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Gap(mq.height * .05),
             MoreList(
