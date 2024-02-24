@@ -7,7 +7,7 @@ part of 'bottombar_provider.dart';
 // **************************************************************************
 
 String _$bottomCurrentIndexHash() =>
-    r'fbc410f587350f8c261453bab443c9bb85ba53ab';
+    r'a5b192a3a3ef24a32ef7f84f5ea135fad219dfd6';
 
 /// See also [BottomCurrentIndex].
 @ProviderFor(BottomCurrentIndex)

@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/more_list_widget.dart';

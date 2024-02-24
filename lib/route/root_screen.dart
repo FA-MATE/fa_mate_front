@@ -15,6 +15,7 @@ class RootScreen extends ConsumerWidget {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
+        sizing: StackFit.loose,
         children: const [
           HomeScreen(),
           PostScreen(),
