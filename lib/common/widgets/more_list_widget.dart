@@ -6,10 +6,12 @@ class MoreList extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
+    this.isMoreList = false,
   });
 
   final String title;
   final VoidCallback onTap;
+  final bool isMoreList;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +28,17 @@ class MoreList extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          GestureDetector(
-            onTap: onTap,
-            child: const Text(
-              "もっと見る >",
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ),
+          isMoreList
+              ? GestureDetector(
+                  onTap: onTap,
+                  child: const Text(
+                    "もっと見る >",
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

@@ -67,6 +67,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: Size(double.infinity, mq.height * .1),
+          child: SizedBox(
+            width: double.infinity,
+            height: mq.height * .1,
+            child: Container(
+              padding: const EdgeInsets.only(
+                top: 10,
+                bottom: 3,
+              ),
+              color: AppColors.searchBackground,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 15),
+                    alignment: Alignment.centerLeft,
+                    height: 32,
+                    width: mq.width * .8,
+                    decoration: BoxDecoration(
+                      color: AppColors.search,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: const Text("検索"),
+                  ),
+                  Gap(mq.width * .015),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: dummyList
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: e,
+                            ))
+                        .toList(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
         elevation: 0,
         title: const Text("ペットの里親お探し"),
         actions: [
@@ -78,43 +118,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: mq.height * .1,
-              child: Container(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 3,
-                ),
-                color: AppColors.searchBackground,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 15),
-                      alignment: Alignment.centerLeft,
-                      height: 32,
-                      width: mq.width * .8,
-                      decoration: BoxDecoration(
-                        color: AppColors.search,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: const Text("検索"),
-                    ),
-                    Gap(mq.width * .015),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: dummyList
-                          .map((e) => Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: e,
-                              ))
-                          .toList(),
-                    )
-                  ],
-                ),
-              ),
-            ),
             Gap(mq.height * .005),
             Stack(
               children: [
@@ -171,6 +174,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             MoreList(
               title: '犬の里親探し',
               onTap: () {},
+              isMoreList: true,
             ),
             Gap(mq.height * .005),
             const HomeHorizontalListWidget(),
@@ -178,6 +182,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             MoreList(
               title: '猫の里親探し',
               onTap: () {},
+              isMoreList: true,
             ),
             Gap(mq.height * .005),
             const HomeHorizontalListWidget(),
