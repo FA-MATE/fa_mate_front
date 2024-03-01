@@ -29,7 +29,7 @@ class TextDefaultWidget extends StatelessWidget {
         fontWeight: fontWeight,
         color: fontColor,
       ),
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
       overflow: textOverflow,
       maxLines: maxLines,
     );

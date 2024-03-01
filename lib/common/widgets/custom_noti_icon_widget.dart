@@ -1,5 +1,6 @@
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CustomNotificationIcon extends StatelessWidget {
@@ -16,7 +17,9 @@ class CustomNotificationIcon extends StatelessWidget {
     return Stack(
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push("/notificationScreen");
+          },
           icon: Icon(
             Iconsax.notification,
             color: iconColor,

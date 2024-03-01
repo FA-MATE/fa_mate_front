@@ -58,7 +58,7 @@ class PostScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PostCategoryWidget(
-                        onTap: () => context.push("/post_detail"),
+                        onTap: () => context.push("/postUploadDetail"),
                         title: "イヌ",
                         icon: Iconsax.pet,
                       ),

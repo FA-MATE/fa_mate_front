@@ -1,8 +1,9 @@
-import 'dart:async';
+import 'dart:developer';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/more_list_widget.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
+import 'package:fa_mate_front/feature/home/page_controller_provider.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:flutter/material.dart';
@@ -32,38 +33,21 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  //PageviewController currentpage
-  int _currentPage = 0;
-  //Controller
-  final PageController _pageController = PageController();
-
-  //auto slideのためTimer定義
-  Timer? _timer;
+  late final PageController controller;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      //periodic使用し5秒間隔で実行
-      _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-        _currentPage++;
-        _pageController.animateToPage(_currentPage,
-            duration: const Duration(milliseconds: 500), curve: Curves.ease);
-      });
+      ref.read(curruntIndexProvider.notifier).autoMovePage();
     });
-  }
-
-  //使わなくなるController、Timerを閉じる
-  @override
-  void dispose() {
-    super.dispose();
-    _currentPage = 0;
-    _pageController.dispose();
-    _timer?.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(homePageControllerProvider);
+    final currentPage = ref.watch(curruntIndexProvider);
+
     mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -125,10 +109,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   width: double.infinity,
                   height: mq.height * .15,
                   child: PageView.builder(
-                    controller: _pageController,
+                    controller: controller,
+                    // controller: _pageController,
                     onPageChanged: (value) {
                       setState(() {
-                        _currentPage = value;
+                        ref
+                            .read(curruntIndexProvider.notifier)
+                            .updateCurrentIndex(value);
                       });
                     },
                     itemBuilder: (context, index) {
@@ -157,7 +144,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               height: 10,
                               decoration: BoxDecoration(
                                 color:
-                                    e.key == (_currentPage % bannerList.length)
+                                    e.key == (currentPage % bannerList.length)
                                         ? Colors.amber
                                         : Colors.grey.shade600,
                                 shape: BoxShape.circle,

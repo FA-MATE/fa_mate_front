@@ -21,8 +21,11 @@ class MyApp extends StatelessWidget {
           routeInformationProvider: router.routeInformationProvider,
           routerDelegate: router.routerDelegate,
           theme: ThemeData(
-            useMaterial3: true,
-          ),
+              useMaterial3: true,
+              appBarTheme: const AppBarTheme(
+                scrolledUnderElevation: 0,
+                backgroundColor: Colors.white,
+              )),
         );
       },
     );
