@@ -1,7 +1,6 @@
-import 'package:fa_mate_front/feature/home/screens/home_screen.dart';
 import 'package:fa_mate_front/route/router.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 late Size mq;
 
@@ -22,8 +21,11 @@ class MyApp extends StatelessWidget {
           routeInformationProvider: router.routeInformationProvider,
           routerDelegate: router.routerDelegate,
           theme: ThemeData(
-            useMaterial3: true,
-          ),
+              useMaterial3: true,
+              appBarTheme: const AppBarTheme(
+                scrolledUnderElevation: 0,
+                backgroundColor: Colors.white,
+              )),
         );
       },
     );

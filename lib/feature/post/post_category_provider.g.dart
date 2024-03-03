@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bottombar_provider.dart';
+part of 'post_category_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bottomCurrentIndexHash() =>
-    r'a5b192a3a3ef24a32ef7f84f5ea135fad219dfd6';
+String _$postUploadCategoryIndexHash() =>
+    r'20be062691d1d056f171c9e66b29d324e6852236';
 
-/// See also [BottomCurrentIndex].
-@ProviderFor(BottomCurrentIndex)
-final bottomCurrentIndexProvider =
-    AutoDisposeNotifierProvider<BottomCurrentIndex, int>.internal(
-  BottomCurrentIndex.new,
-  name: r'bottomCurrentIndexProvider',
+/// See also [PostUploadCategoryIndex].
+@ProviderFor(PostUploadCategoryIndex)
+final postUploadCategoryIndexProvider =
+    AutoDisposeNotifierProvider<PostUploadCategoryIndex, int>.internal(
+  PostUploadCategoryIndex.new,
+  name: r'postUploadCategoryIndexProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$bottomCurrentIndexHash,
+      : _$postUploadCategoryIndexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$BottomCurrentIndex = AutoDisposeNotifier<int>;
+typedef _$PostUploadCategoryIndex = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

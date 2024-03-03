@@ -1,7 +1,8 @@
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/route/bottombar_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BottomNaviWidget extends ConsumerWidget {
   const BottomNaviWidget({
@@ -25,10 +26,18 @@ class BottomNaviWidget extends ConsumerWidget {
         currentIndex: currenIndex,
         selectedItemColor: AppColors.black,
         unselectedItemColor: AppColors.black.withOpacity(0.5),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "ホーム"),
-          BottomNavigationBarItem(icon: Icon(Icons.pets), label: "投稿"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "ホーム"),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(currenIndex == 0 ? Icons.home : Icons.home_outlined),
+              label: "ホーム"),
+          BottomNavigationBarItem(
+              icon: Icon(currenIndex == 1 ? Iconsax.pet5 : Iconsax.pet4),
+              label: "投稿"),
+          BottomNavigationBarItem(
+              icon: Icon(currenIndex == 2
+                  ? Iconsax.profile_circle5
+                  : Iconsax.profile_circle4),
+              label: "マイページ"),
         ],
       ),
     );

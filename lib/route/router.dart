@@ -1,11 +1,17 @@
+import 'package:fa_mate_front/feature/notification/screens/notification_screen.dart';
 import 'package:fa_mate_front/feature/home/screens/home_screen.dart';
 import 'package:fa_mate_front/feature/mypage/screens/mypage_screen.dart';
+import 'package:fa_mate_front/feature/post/screens/post_detail_screen.dart';
 import 'package:fa_mate_front/feature/post/screens/post_screen.dart';
+import 'package:fa_mate_front/feature/post/screens/post_upload_detail_screen.dart';
+import 'package:fa_mate_front/feature/post/screens/select_category.dart';
 import 'package:fa_mate_front/route/root_screen.dart';
 import 'package:fa_mate_front/route/route_error_screen.dart';
 import 'package:fa_mate_front/route/router_name.dart';
+import 'package:fa_mate_front/utils/enum.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -33,9 +39,45 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
+        path: '/postDetail',
+        name: postDetail,
+        builder: (context, state) => PostDetailScreen(
+          key: state.pageKey,
+        ),
+      ),
+      GoRoute(
+        path: '/postUploadDetail',
+        name: postUploadDetail,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                    position: Tween<Offset>(
+                            begin: const Offset(0, 1), end: Offset.zero)
+                        .animate(animation),
+                    child:
+                        PostDetailUploadScreen(categoryId: state.extra as int));
+              },
+              child: const SizedBox.shrink());
+        },
+      ),
+      GoRoute(
         path: '/mypage',
         name: mypage,
         builder: (context, state) => MyPageScreen(
+          key: state.pageKey,
+        ),
+      ),
+      GoRoute(
+        path: '/selectCategory',
+        name: selectCategory,
+        builder: (context, state) => const SelectCategory(),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: notificationScreen,
+        builder: (context, state) => NotificationScreen(
           key: state.pageKey,
         ),
       ),
