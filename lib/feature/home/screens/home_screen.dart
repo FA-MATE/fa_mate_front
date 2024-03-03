@@ -1,11 +1,14 @@
 import 'dart:developer';
+
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/more_list_widget.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
-import 'package:fa_mate_front/feature/home/page_controller_provider.dart';
+import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';
+import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
 import 'package:fa_mate_front/main.dart';
+import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -164,7 +167,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               isMoreList: true,
             ),
             Gap(mq.height * .005),
-            const HomeHorizontalListWidget(),
+            HomeHorizontalListWidget(
+              // dataList: postList,
+              categoryId: Categories.dog.toInt(),
+            ),
             Gap(mq.height * .05),
             MoreList(
               title: '猫の里親探し',
@@ -172,7 +178,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               isMoreList: true,
             ),
             Gap(mq.height * .005),
-            const HomeHorizontalListWidget(),
+            HomeHorizontalListWidget(
+                // dataList: postList,
+                categoryId: Categories.cat.toInt()),
+            Gap(mq.height * .05),
+            MoreList(
+              title: '鳥の里親探し',
+              onTap: () {},
+              isMoreList: true,
+            ),
+            Gap(mq.height * .005),
+            HomeHorizontalListWidget(categoryId: Categories.bird.toInt()),
+            Gap(mq.height * .05),
           ],
         ),
       ),

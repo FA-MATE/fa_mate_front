@@ -5,17 +5,15 @@ part 'tag_model.g.dart';
 part 'tag_model.freezed.dart';
 
 @freezed
-class TagModel with _$TagModel {
+class TagListModel with _$TagListModel {
   @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory TagModel({
+  const factory TagListModel({
     required int id,
-    required int tagGroupId,
     required String name,
     required int orderNo,
-    @Default("") String? createdAt,
-    @Default("") String? updatedAt,
-  }) = _TagModel;
+    required Map<String, dynamic> tagGroup,
+  }) = _TagListModel;
 
-  factory TagModel.fromJson(Map<String, dynamic> json) =>
-      _$TagModelFromJson(json);
+  factory TagListModel.fromJson(Map<String, dynamic> json) =>
+      _$TagListModelFromJson(json);
 }

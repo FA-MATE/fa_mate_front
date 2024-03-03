@@ -1,6 +1,10 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:fa_mate_front/common/models/tag_model.dart';
+import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
+import 'package:fa_mate_front/route/router_name.dart';
+import 'package:fa_mate_front/utils/enum.dart';
+import 'package:logger/logger.dart';
 
 //SingleTone DataSource
 class DataSource {
@@ -16,25 +20,90 @@ class DataSource {
   //이것은 private 생성자입니다. 이 생성자는 클래스 내부에서만 호출할 수 있으므로, 이 클래스가 다른 곳에서 인스턴스화되는 것을 방지합니다.
   DataSource._();
 
+  Dio dio = Dio(BaseOptions(baseUrl: "https://fa-mate-rails.onrender.com/"));
 //** Tag  */
-  Future<List<TagModel>> getTagList() async {
-    Dio dio = Dio();
+  Future<List<TagListModel>> getTagList() async {
     try {
-      Response res = await dio.get('https://fa-mate-rails.onrender.com/tags/1');
-      List<TagModel> tags = [];
+      Response res = await dio.get('tags.json');
+      List<TagListModel> tags = [];
       if (res.statusCode == 200) {
-        tags.add(TagModel.fromJson(res.data));
+        for (var tag in res.data) {
+          tags.add(TagListModel.fromJson(tag));
+        }
 
-        log("Tag!!! ${tags.toString()}");
         return tags;
       } else {
-        return <TagModel>[];
+        return <TagListModel>[];
       }
     } catch (e) {
       Exception(e);
     } finally {
       dio.close();
     }
-    return <TagModel>[];
+    return <TagListModel>[];
+  }
+
+  Future<dynamic> getTag(int tagId) async {
+    try {
+      Response res = await dio.get('tags/$tagId.json');
+      late TagListModel tag;
+      if (res.statusCode == 200) {
+        tag = TagListModel.fromJson(res.data);
+
+        return tag;
+      } else {
+        return TagListModel;
+      }
+    } catch (e) {
+      Exception(e);
+    } finally {
+      // dio.close();
+    }
+    return TagListModel;
+  }
+
+  Future<List<HomePostListModel>> getPostList() async {
+    try {
+      Response res = await dio.get("posts.json");
+      List<HomePostListModel> postList = [];
+      if (res.statusCode == 200) {
+        for (var data in res.data) {
+          postList.add(HomePostListModel.fromJson(data));
+        }
+
+        log(postList.length.toString());
+
+        return postList;
+      } else {
+        return <HomePostListModel>[];
+      }
+    } catch (e) {
+      Exception(e);
+    } finally {
+      dio.close();
+    }
+    return <HomePostListModel>[];
+  }
+
+  Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
+    try {
+      Response res =
+          await dio.get("posts.json?per=10&page=1&category_id=$categoryId");
+      List<HomePostListModel> postList = [];
+      if (res.statusCode == 200) {
+        for (var data in res.data) {
+          postList.add(HomePostListModel.fromJson(data));
+        }
+
+        return postList;
+      } else {
+        return <HomePostListModel>[];
+      }
+    } catch (e) {
+      Exception(e);
+    } finally {
+      dio.close();
+    }
+    return <HomePostListModel>[];
   }
 }

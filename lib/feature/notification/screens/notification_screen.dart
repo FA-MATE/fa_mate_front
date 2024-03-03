@@ -1,10 +1,14 @@
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
-import 'package:fa_mate_front/feature/home/page_controller_provider.dart';
+import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/route/bottombar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shimmer/shimmer.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -41,15 +45,26 @@ class NotificationScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             leading: CircleAvatar(
+              backgroundColor: Colors.black12.withOpacity(0.1),
               child: Container(
                 clipBehavior: Clip.antiAlias,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.network(
-                  'https://picsum.photos/250/${index + 1}50',
+                child: CachedNetworkImage(
+                  imageUrl: 'https://picsum.photos/250/${index + 1}50',
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey,
+                    highlightColor: Colors.grey.shade100,
+                    child: Container(
+                      color: Colors.black26,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.black26,
+                  ),
                 ),
               ),
             ),

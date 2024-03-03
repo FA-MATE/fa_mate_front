@@ -11,7 +11,8 @@ class RootScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomCurrentIndexProvider);
     return Scaffold(
-      body: screens[currentIndex],
+      body: IndexedStack(index: currentIndex, children: screens),
+      // screens[currentIndex],
       bottomNavigationBar: const BottomNaviWidget(),
     );
   }

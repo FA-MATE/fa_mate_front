@@ -2,9 +2,11 @@ import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/common/widgets/top_title_widget.dart';
+import 'package:fa_mate_front/feature/post/post_category_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_category_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_hint_widget.dart';
 import 'package:fa_mate_front/main.dart';
+import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -47,7 +49,7 @@ class PostScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TextDefaultWidget(
-                    title: '譲ります • 貰いたい',
+                    title: '譲ります',
                     fontColor: AppColors.black,
                     fontSize: 10,
                     textAlign: TextAlign.start,
@@ -58,19 +60,28 @@ class PostScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PostCategoryWidget(
-                        onTap: () => context.push("/postUploadDetail"),
+                        onTap: () {
+                          context.push("/postUploadDetail",
+                              extra: Categories.dog.toInt());
+                        },
                         title: "イヌ",
                         icon: Iconsax.pet,
                       ),
                       Gap(mq.height * .02),
                       PostCategoryWidget(
-                        onTap: () {},
+                        onTap: () {
+                          context.push("/postUploadDetail",
+                              extra: Categories.cat.toInt());
+                        },
                         title: "ネコ",
                         icon: Iconsax.add_square,
                       ),
                       Gap(mq.height * .02),
                       PostCategoryWidget(
-                        onTap: () {},
+                        onTap: () {
+                          context.push("/postUploadDetail",
+                              extra: Categories.bird.toInt());
+                        },
                         title: "トリ",
                         icon: Iconsax.add_square,
                       ),

@@ -4,11 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'tag_provider.g.dart';
 
 @riverpod
-class GetTag extends _$GetTag {
+class GetTags extends _$GetTags {
   final _tagRepository = TagRepository();
 
   @override
-  Future<List<TagModel>> build() {
+  Future<List<TagListModel>> build() {
     return _tagRepository.getTagList();
   }
 }

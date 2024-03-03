@@ -8,6 +8,7 @@ import 'package:fa_mate_front/feature/post/screens/select_category.dart';
 import 'package:fa_mate_front/route/root_screen.dart';
 import 'package:fa_mate_front/route/route_error_screen.dart';
 import 'package:fa_mate_front/route/router_name.dart';
+import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -52,11 +53,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 return SlideTransition(
-                  position:
-                      Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-                          .animate(animation),
-                  child: const PostDetailUploadScreen(),
-                );
+                    position: Tween<Offset>(
+                            begin: const Offset(0, 1), end: Offset.zero)
+                        .animate(animation),
+                    child:
+                        PostDetailUploadScreen(categoryId: state.extra as int));
               },
               child: const SizedBox.shrink());
         },
@@ -71,9 +72,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/selectCategory',
         name: selectCategory,
-        builder: (context, state) => SelectCategory(
-          key: state.pageKey,
-        ),
+        builder: (context, state) => const SelectCategory(),
       ),
       GoRoute(
         path: '/notificationScreen',

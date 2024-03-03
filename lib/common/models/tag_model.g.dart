@@ -6,22 +6,18 @@ part of 'tag_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TagModelImpl _$$TagModelImplFromJson(Map<String, dynamic> json) =>
-    _$TagModelImpl(
+_$TagListModelImpl _$$TagListModelImplFromJson(Map<String, dynamic> json) =>
+    _$TagListModelImpl(
       id: json['id'] as int,
-      tagGroupId: json['tag_group_id'] as int,
       name: json['name'] as String,
       orderNo: json['order_no'] as int,
-      createdAt: json['created_at'] as String? ?? "",
-      updatedAt: json['updated_at'] as String? ?? "",
+      tagGroup: json['tag_group'] as Map<String, dynamic>,
     );
 
-Map<String, dynamic> _$$TagModelImplToJson(_$TagModelImpl instance) =>
+Map<String, dynamic> _$$TagListModelImplToJson(_$TagListModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'tag_group_id': instance.tagGroupId,
       'name': instance.name,
       'order_no': instance.orderNo,
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
+      'tag_group': instance.tagGroup,
     };

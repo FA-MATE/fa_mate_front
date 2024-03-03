@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 final categories = ["슈나우져", "푸들", "말티즈", "도베르만", "불독"];
 
 class SelectCategory extends StatelessWidget {
-  const SelectCategory({super.key});
+  const SelectCategory({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -14,43 +14,36 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TagModel _$TagModelFromJson(Map<String, dynamic> json) {
-  return _TagModel.fromJson(json);
+TagListModel _$TagListModelFromJson(Map<String, dynamic> json) {
+  return _TagListModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TagModel {
+mixin _$TagListModel {
   int get id => throw _privateConstructorUsedError;
-  int get tagGroupId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get orderNo => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
+  Map<String, dynamic> get tagGroup => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TagModelCopyWith<TagModel> get copyWith =>
+  $TagListModelCopyWith<TagListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TagModelCopyWith<$Res> {
-  factory $TagModelCopyWith(TagModel value, $Res Function(TagModel) then) =
-      _$TagModelCopyWithImpl<$Res, TagModel>;
+abstract class $TagListModelCopyWith<$Res> {
+  factory $TagListModelCopyWith(
+          TagListModel value, $Res Function(TagListModel) then) =
+      _$TagListModelCopyWithImpl<$Res, TagListModel>;
   @useResult
-  $Res call(
-      {int id,
-      int tagGroupId,
-      String name,
-      int orderNo,
-      String? createdAt,
-      String? updatedAt});
+  $Res call({int id, String name, int orderNo, Map<String, dynamic> tagGroup});
 }
 
 /// @nodoc
-class _$TagModelCopyWithImpl<$Res, $Val extends TagModel>
-    implements $TagModelCopyWith<$Res> {
-  _$TagModelCopyWithImpl(this._value, this._then);
+class _$TagListModelCopyWithImpl<$Res, $Val extends TagListModel>
+    implements $TagListModelCopyWith<$Res> {
+  _$TagListModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -61,21 +54,15 @@ class _$TagModelCopyWithImpl<$Res, $Val extends TagModel>
   @override
   $Res call({
     Object? id = null,
-    Object? tagGroupId = null,
     Object? name = null,
     Object? orderNo = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? tagGroup = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      tagGroupId: null == tagGroupId
-          ? _value.tagGroupId
-          : tagGroupId // ignore: cast_nullable_to_non_nullable
-              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -84,61 +71,45 @@ class _$TagModelCopyWithImpl<$Res, $Val extends TagModel>
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+      tagGroup: null == tagGroup
+          ? _value.tagGroup
+          : tagGroup // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$TagModelImplCopyWith<$Res>
-    implements $TagModelCopyWith<$Res> {
-  factory _$$TagModelImplCopyWith(
-          _$TagModelImpl value, $Res Function(_$TagModelImpl) then) =
-      __$$TagModelImplCopyWithImpl<$Res>;
+abstract class _$$TagListModelImplCopyWith<$Res>
+    implements $TagListModelCopyWith<$Res> {
+  factory _$$TagListModelImplCopyWith(
+          _$TagListModelImpl value, $Res Function(_$TagListModelImpl) then) =
+      __$$TagListModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      int tagGroupId,
-      String name,
-      int orderNo,
-      String? createdAt,
-      String? updatedAt});
+  $Res call({int id, String name, int orderNo, Map<String, dynamic> tagGroup});
 }
 
 /// @nodoc
-class __$$TagModelImplCopyWithImpl<$Res>
-    extends _$TagModelCopyWithImpl<$Res, _$TagModelImpl>
-    implements _$$TagModelImplCopyWith<$Res> {
-  __$$TagModelImplCopyWithImpl(
-      _$TagModelImpl _value, $Res Function(_$TagModelImpl) _then)
+class __$$TagListModelImplCopyWithImpl<$Res>
+    extends _$TagListModelCopyWithImpl<$Res, _$TagListModelImpl>
+    implements _$$TagListModelImplCopyWith<$Res> {
+  __$$TagListModelImplCopyWithImpl(
+      _$TagListModelImpl _value, $Res Function(_$TagListModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? tagGroupId = null,
     Object? name = null,
     Object? orderNo = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? tagGroup = null,
   }) {
-    return _then(_$TagModelImpl(
+    return _then(_$TagListModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      tagGroupId: null == tagGroupId
-          ? _value.tagGroupId
-          : tagGroupId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -148,14 +119,10 @@ class __$$TagModelImplCopyWithImpl<$Res>
           ? _value.orderNo
           : orderNo // ignore: cast_nullable_to_non_nullable
               as int,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+      tagGroup: null == tagGroup
+          ? _value._tagGroup
+          : tagGroup // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -163,99 +130,86 @@ class __$$TagModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$TagModelImpl implements _TagModel {
-  const _$TagModelImpl(
+class _$TagListModelImpl implements _TagListModel {
+  const _$TagListModelImpl(
       {required this.id,
-      required this.tagGroupId,
       required this.name,
       required this.orderNo,
-      this.createdAt = "",
-      this.updatedAt = ""});
+      required final Map<String, dynamic> tagGroup})
+      : _tagGroup = tagGroup;
 
-  factory _$TagModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TagModelImplFromJson(json);
+  factory _$TagListModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TagListModelImplFromJson(json);
 
   @override
   final int id;
   @override
-  final int tagGroupId;
-  @override
   final String name;
   @override
   final int orderNo;
+  final Map<String, dynamic> _tagGroup;
   @override
-  @JsonKey()
-  final String? createdAt;
-  @override
-  @JsonKey()
-  final String? updatedAt;
+  Map<String, dynamic> get tagGroup {
+    if (_tagGroup is EqualUnmodifiableMapView) return _tagGroup;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_tagGroup);
+  }
 
   @override
   String toString() {
-    return 'TagModel(id: $id, tagGroupId: $tagGroupId, name: $name, orderNo: $orderNo, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'TagListModel(id: $id, name: $name, orderNo: $orderNo, tagGroup: $tagGroup)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TagModelImpl &&
+            other is _$TagListModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.tagGroupId, tagGroupId) ||
-                other.tagGroupId == tagGroupId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.orderNo, orderNo) || other.orderNo == orderNo) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            const DeepCollectionEquality().equals(other._tagGroup, _tagGroup));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, tagGroupId, name, orderNo, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, name, orderNo,
+      const DeepCollectionEquality().hash(_tagGroup));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TagModelImplCopyWith<_$TagModelImpl> get copyWith =>
-      __$$TagModelImplCopyWithImpl<_$TagModelImpl>(this, _$identity);
+  _$$TagListModelImplCopyWith<_$TagListModelImpl> get copyWith =>
+      __$$TagListModelImplCopyWithImpl<_$TagListModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TagModelImplToJson(
+    return _$$TagListModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _TagModel implements TagModel {
-  const factory _TagModel(
+abstract class _TagListModel implements TagListModel {
+  const factory _TagListModel(
       {required final int id,
-      required final int tagGroupId,
       required final String name,
       required final int orderNo,
-      final String? createdAt,
-      final String? updatedAt}) = _$TagModelImpl;
+      required final Map<String, dynamic> tagGroup}) = _$TagListModelImpl;
 
-  factory _TagModel.fromJson(Map<String, dynamic> json) =
-      _$TagModelImpl.fromJson;
+  factory _TagListModel.fromJson(Map<String, dynamic> json) =
+      _$TagListModelImpl.fromJson;
 
   @override
   int get id;
-  @override
-  int get tagGroupId;
   @override
   String get name;
   @override
   int get orderNo;
   @override
-  String? get createdAt;
-  @override
-  String? get updatedAt;
+  Map<String, dynamic> get tagGroup;
   @override
   @JsonKey(ignore: true)
-  _$$TagModelImplCopyWith<_$TagModelImpl> get copyWith =>
+  _$$TagListModelImplCopyWith<_$TagListModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
