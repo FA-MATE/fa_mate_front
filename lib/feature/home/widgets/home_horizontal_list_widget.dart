@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
-import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:fa_mate_front/providers/tag_provider.dart';
@@ -157,7 +155,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                 }
                 return GestureDetector(
                   onTap: () {
-                    context.push("/postDetail");
+                    context.push("/postDetail", extra: data[index].id);
                   },
                   child: Container(
                     decoration: BoxDecoration(

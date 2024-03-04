@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fa_mate_front/common/constant/app_icons.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/route/bottombar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -21,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
           builder: (context, ref, child) {
             return IconButton(
               icon: const Icon(
-                Iconsax.arrow_left_2,
+                AppIcons.backIcon,
               ),
               onPressed: () {
                 ref.read(bottomCurrentIndexProvider) == 0
@@ -77,7 +75,7 @@ class NotificationScreen extends StatelessWidget {
             ),
             subtitle: const Text("3日前"),
             trailing: const Icon(
-              Iconsax.arrow_right_34,
+              AppIcons.arrowRight,
             ),
           );
         },

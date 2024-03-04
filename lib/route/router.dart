@@ -8,7 +8,6 @@ import 'package:fa_mate_front/feature/post/screens/select_category.dart';
 import 'package:fa_mate_front/route/root_screen.dart';
 import 'package:fa_mate_front/route/route_error_screen.dart';
 import 'package:fa_mate_front/route/router_name.dart';
-import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +41,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/postDetail',
         name: postDetail,
         builder: (context, state) => PostDetailScreen(
+          postId: state.extra as int,
           key: state.pageKey,
         ),
       ),
