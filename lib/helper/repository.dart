@@ -1,5 +1,6 @@
 import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
+import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
 import 'package:fa_mate_front/helper/data_source.dart';
 
 final DataSource _dataSource = DataSource();
@@ -19,5 +20,9 @@ class PostRepository {
 
   Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
     return await _dataSource.getPostJoinCategory(categoryId);
+  }
+
+  Future<PostDetailModel> getPost(int postId) async {
+    return await _dataSource.getPost(postId);
   }
 }

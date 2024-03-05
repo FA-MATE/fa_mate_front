@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/more_list_widget.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
-import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';
 import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
 import 'package:fa_mate_front/main.dart';

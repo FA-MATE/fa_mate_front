@@ -2,9 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
-import 'package:fa_mate_front/route/router_name.dart';
-import 'package:fa_mate_front/utils/enum.dart';
-import 'package:logger/logger.dart';
+import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
 
 //SingleTone DataSource
 class DataSource {
@@ -38,7 +36,7 @@ class DataSource {
     } catch (e) {
       Exception(e);
     } finally {
-      dio.close();
+      // dio.close();
     }
     return <TagListModel>[];
   }
@@ -80,7 +78,7 @@ class DataSource {
     } catch (e) {
       Exception(e);
     } finally {
-      dio.close();
+      // dio.close();
     }
     return <HomePostListModel>[];
   }
@@ -102,8 +100,24 @@ class DataSource {
     } catch (e) {
       Exception(e);
     } finally {
-      dio.close();
+      // dio.close();
     }
     return <HomePostListModel>[];
+  }
+
+  Future<PostDetailModel> getPost(int postId) async {
+    try {
+      log("abcddcd");
+      Response res = await dio.get("posts/$postId.json");
+      if (res.statusCode == 200) {
+        return PostDetailModel.fromJson(res.data);
+      } else {
+        throw Exception("Error fetching post details: ${res.statusCode}");
+      }
+    } catch (e) {
+      // Handle other exceptions
+      log(e.toString());
+      throw Exception("Error!!!!!!!!!!!!!: $e");
+    }
   }
 }

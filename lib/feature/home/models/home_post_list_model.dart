@@ -1,4 +1,3 @@
-import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'home_post_list_model.g.dart';
 part 'home_post_list_model.freezed.dart';
