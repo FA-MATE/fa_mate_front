@@ -410,13 +410,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                               Text("abcd"),
                             ],
                           ),
-                          // Gap(mq.height * .005),
-                          // Gap(mq.height * .005),
-                          // const TextDefaultWidget(
-                          //   title: "• 가족 중 성인이 있는 분",
-                          //   fontSize: 19,
-                          //   fontWeight: FontWeight.bold,
-                          // ),
                         ],
                       ),
                     ),

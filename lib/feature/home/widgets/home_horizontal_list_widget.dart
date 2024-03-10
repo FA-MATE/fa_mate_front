@@ -146,14 +146,14 @@ class HomeHorizontalListWidget extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               itemCount: data.length,
               itemBuilder: (context, index) {
+                //** tagsリストをクリア */
                 tags.clear();
-                for (var tag in tagList) {
-                  for (var postTag in data[index].tags) {
-                    if (postTag.containsValue(tag.id)) {
-                      tags.add(tag);
-                    }
-                  }
-                }
+                final postTags = data[index].tags;
+                tags = postTags
+                    .map((tag) => tagList
+                        .firstWhere((cachedTag) => cachedTag.id == tag["id"]))
+                    .toList();
+
                 return GestureDetector(
                   onTap: () {
                     context.push("/postDetail", extra: data[index].id);
