@@ -7,7 +7,7 @@ part of 'page_controller_provider.dart';
 // **************************************************************************
 
 String _$homePageControllerHash() =>
-    r'05d4558e84b8aecd2fd24c11c2d1d855f9966850';
+    r'fd9db7f269bf966d0739299cefb8f460a0c10666';
 
 /// See also [HomePageController].
 @ProviderFor(HomePageController)
@@ -23,7 +23,7 @@ final homePageControllerProvider =
 );
 
 typedef _$HomePageController = AutoDisposeNotifier<PageController>;
-String _$curruntIndexHash() => r'976f35d570169062e8457151218fd3bc4e72e938';
+String _$curruntIndexHash() => r'539c818a0dd23dd42d2de42a8885e656c223a14a';
 
 /// See also [CurruntIndex].
 @ProviderFor(CurruntIndex)

@@ -2,6 +2,7 @@ import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
 import 'package:fa_mate_front/helper/data_source.dart';
+import 'package:fa_mate_front/init_models/init_model.dart';
 
 final DataSource _dataSource = DataSource();
 
@@ -9,6 +10,13 @@ class TagRepository {
   //싱글톤 Datasource를 가져와서 사용
   Future<List<TagListModel>> getTagList() async {
     return await _dataSource.getTagList();
+  }
+}
+
+class InitRepository {
+  //싱글톤 Datasource를 가져와서 사용
+  Future<InitModel> getInitData() async {
+    return await _dataSource.initAppDataList();
   }
 }
 

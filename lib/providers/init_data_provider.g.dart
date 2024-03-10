@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tag_provider.dart';
+part of 'init_data_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getTagsHash() => r'9ac5e97cca46ea649a9dbdb056d0622af5fa1354';
+String _$getInitDataHash() => r'ba44030764d58732069cce2a8f1ea64687125b44';
 
-/// See also [GetTags].
-@ProviderFor(GetTags)
-final getTagsProvider =
-    AutoDisposeAsyncNotifierProvider<GetTags, List<TagListModel>>.internal(
-  GetTags.new,
-  name: r'getTagsProvider',
+/// See also [GetInitData].
+@ProviderFor(GetInitData)
+final getInitDataProvider =
+    AutoDisposeAsyncNotifierProvider<GetInitData, InitModel>.internal(
+  GetInitData.new,
+  name: r'getInitDataProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$getTagsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getInitDataHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$GetTags = AutoDisposeAsyncNotifier<List<TagListModel>>;
+typedef _$GetInitData = AutoDisposeAsyncNotifier<InitModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -6,7 +6,7 @@ part of 'post_detail_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$postDetailIdHash() => r'91fafe73b5a5f530dc18db668c612a03bc9f06a2';
+String _$postDetailIdHash() => r'e5b574825d85e856ea925b637e8020214783a4eb';
 
 /// See also [PostDetailId].
 @ProviderFor(PostDetailId)
@@ -21,7 +21,7 @@ final postDetailIdProvider =
 );
 
 typedef _$PostDetailId = AutoDisposeNotifier<int>;
-String _$postDetailDataHash() => r'fb0d75a5460fb9f12cc6f2bbdcad3078ced2ccec';
+String _$postDetailDataHash() => r'627ec0e3802c85c4a8a1ade9384eb12997385e0c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -186,5 +186,20 @@ class _PostDetailDataProviderElement
   @override
   int get postId => (origin as PostDetailDataProvider).postId;
 }
+
+String _$isLoadingHash() => r'e646ebf9b71ed761e75a13966606a54165449177';
+
+/// See also [IsLoading].
+@ProviderFor(IsLoading)
+final isLoadingProvider = AutoDisposeNotifierProvider<IsLoading, bool>.internal(
+  IsLoading.new,
+  name: r'isLoadingProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isLoadingHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$IsLoading = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
