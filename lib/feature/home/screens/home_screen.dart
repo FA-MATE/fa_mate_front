@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           bottom: PreferredSize(
-            preferredSize: Size(double.infinity, mq.height * .1),
+            preferredSize: Size(double.infinity, mq.height * .12),
             child: SizedBox(
               width: double.infinity,
               height: mq.height * .12,
@@ -77,6 +77,7 @@ class HomeScreen extends StatelessWidget {
           ),
           elevation: 0,
           title: const Text("ペットの里親お探し"),
+          centerTitle: true,
           actions: [
             CustomNotificationIcon(
               onPressed: () {},
