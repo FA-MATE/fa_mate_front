@@ -28,7 +28,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
 
     return Container(
         alignment: Alignment.centerLeft,
-        height: mq.height * .29,
+        height: mq.height * .35,
         child: getPostDataList.when(
           loading: () {
             return ListView.separated(
@@ -39,6 +39,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
               itemCount: 3,
               itemBuilder: (context, index) {
                 return Container(
+                  width: mq.width * .4,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     color: const Color(0xffFFFFFF),
@@ -55,7 +56,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  width: mq.width * .35,
+                  // width: mq.width * .5,
                   margin: EdgeInsets.only(
                     top: 4,
                     bottom: 4,
@@ -78,11 +79,10 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            // color: const Color(0xffF8F8F8),
                             color: Colors.black26,
                           ),
                           width: double.infinity,
-                          height: mq.height * .1,
+                          height: mq.height * .15,
                         ),
                       ),
                       Gap(mq.height * .01),
@@ -175,7 +175,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    width: mq.width * .35,
+                    width: mq.width * .4,
                     margin: EdgeInsets.only(
                       top: 4,
                       bottom: 4,
@@ -197,7 +197,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           width: double.infinity,
-                          height: mq.height * .1,
+                          height: mq.height * .15,
                           child: CachedNetworkImage(
                             errorWidget: (context, url, error) => Container(
                               color: AppColors.grey,
@@ -219,7 +219,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Gap(mq.height * .002),
+                        Gap(mq.height * .01),
                         Wrap(
                           spacing: 2,
                           runSpacing: 3,

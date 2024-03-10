@@ -31,149 +31,153 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size(double.infinity, mq.height * .1),
-          child: SizedBox(
-            width: double.infinity,
-            height: mq.height * .1,
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 10,
-                bottom: 3,
-              ),
-              color: AppColors.searchBackground,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 15),
-                    alignment: Alignment.centerLeft,
-                    height: 32,
-                    width: mq.width * .8,
-                    decoration: BoxDecoration(
-                      color: AppColors.search,
-                      borderRadius: BorderRadius.circular(24),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: PreferredSize(
+            preferredSize: Size(double.infinity, mq.height * .1),
+            child: SizedBox(
+              width: double.infinity,
+              height: mq.height * .12,
+              child: Container(
+                height: mq.height * .12,
+                padding: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 3,
+                ),
+                color: AppColors.searchBackground,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(left: 15),
+                      alignment: Alignment.centerLeft,
+                      height: mq.height * .04,
+                      width: mq.width * .8,
+                      decoration: BoxDecoration(
+                        color: AppColors.search,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: const Text("検索"),
                     ),
-                    child: const Text("検索"),
-                  ),
-                  Gap(mq.width * .015),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: dummyList
-                        .map((e) => Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: e,
-                            ))
-                        .toList(),
-                  )
-                ],
+                    Gap(mq.width * .015),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: dummyList
+                          .map((e) => Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: e,
+                              ))
+                          .toList(),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
+          elevation: 0,
+          title: const Text("ペットの里親お探し"),
+          actions: [
+            CustomNotificationIcon(
+              onPressed: () {},
+            ),
+          ],
         ),
-        elevation: 0,
-        title: const Text("ペットの里親お探し"),
-        actions: [
-          CustomNotificationIcon(
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Gap(mq.height * .001),
-            Stack(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: mq.height * .15,
-                  child: Consumer(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Gap(mq.height * .001),
+              Stack(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: mq.height * .15,
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final controller =
+                            ref.watch(homePageControllerProvider);
+                        return PageView.builder(
+                          controller: controller,
+                          onPageChanged: (value) {
+                            ref
+                                .read(curruntIndexProvider.notifier)
+                                .updateCurrentIndex(value);
+                          },
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              child: Image.asset(
+                                bannerList[index % bannerList.length],
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  Consumer(
                     builder: (context, ref, child) {
-                      final controller = ref.watch(homePageControllerProvider);
-                      return PageView.builder(
-                        controller: controller,
-                        onPageChanged: (value) {
-                          ref
-                              .read(curruntIndexProvider.notifier)
-                              .updateCurrentIndex(value);
-                        },
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            child: Image.asset(
-                              bannerList[index % bannerList.length],
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        },
+                      final currentPage = ref.watch(curruntIndexProvider);
+                      return Positioned(
+                        bottom: 10,
+                        left: mq.width / 2,
+                        child: SizedBox(
+                          width: mq.width * .1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: bannerList
+                                .asMap()
+                                .entries
+                                .map(
+                                  (e) => Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                      color: e.key ==
+                                              (currentPage % bannerList.length)
+                                          ? Colors.amber
+                                          : Colors.grey.shade600,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
                       );
                     },
                   ),
-                ),
-                Consumer(
-                  builder: (context, ref, child) {
-                    final currentPage = ref.watch(curruntIndexProvider);
-                    return Positioned(
-                      bottom: 10,
-                      left: mq.width / 2,
-                      child: SizedBox(
-                        width: mq.width * .1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: bannerList
-                              .asMap()
-                              .entries
-                              .map(
-                                (e) => Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                    color: e.key ==
-                                            (currentPage % bannerList.length)
-                                        ? Colors.amber
-                                        : Colors.grey.shade600,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            Gap(mq.height * .05),
-            MoreList(
-              title: '犬の里親探し',
-              onTap: () {},
-              isMoreList: true,
-            ),
-            Gap(mq.height * .005),
-            HomeHorizontalListWidget(
-              categoryId: Categories.dog.toInt(),
-            ),
-            Gap(mq.height * .05),
-            MoreList(
-              title: '猫の里親探し',
-              onTap: () {},
-              isMoreList: true,
-            ),
-            Gap(mq.height * .005),
-            HomeHorizontalListWidget(categoryId: Categories.cat.toInt()),
-            Gap(mq.height * .05),
-            MoreList(
-              title: '鳥の里親探し',
-              onTap: () {},
-              isMoreList: true,
-            ),
-            Gap(mq.height * .005),
-            HomeHorizontalListWidget(categoryId: Categories.bird.toInt()),
-            Gap(mq.height * .05),
-          ],
+                ],
+              ),
+              Gap(mq.height * .05),
+              MoreList(
+                title: '犬の里親探し',
+                onTap: () {},
+                isMoreList: true,
+              ),
+              Gap(mq.height * .005),
+              HomeHorizontalListWidget(
+                categoryId: Categories.dog.toInt(),
+              ),
+              Gap(mq.height * .02),
+              MoreList(
+                title: '猫の里親探し',
+                onTap: () {},
+                isMoreList: true,
+              ),
+              Gap(mq.height * .005),
+              HomeHorizontalListWidget(categoryId: Categories.cat.toInt()),
+              Gap(mq.height * .02),
+              MoreList(
+                title: '鳥の里親探し',
+                onTap: () {},
+                isMoreList: true,
+              ),
+              Gap(mq.height * .005),
+              HomeHorizontalListWidget(categoryId: Categories.bird.toInt()),
+              Gap(mq.height * .02),
+            ],
+          ),
         ),
       ),
     );
