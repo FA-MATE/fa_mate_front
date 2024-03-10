@@ -25,29 +25,11 @@ List<String> bannerList = [
   "assets/images/banners/banner_3.jpg",
 ];
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  late final PageController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      ref.read(curruntIndexProvider.notifier).autoMovePage();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(homePageControllerProvider);
-    final currentPage = ref.watch(curruntIndexProvider);
-
     mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -102,58 +84,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Gap(mq.height * .005),
+            Gap(mq.height * .001),
             Stack(
               children: [
                 SizedBox(
                   width: double.infinity,
                   height: mq.height * .15,
-                  child: PageView.builder(
-                    controller: controller,
-                    // controller: _pageController,
-                    onPageChanged: (value) {
-                      setState(() {
-                        ref
-                            .read(curruntIndexProvider.notifier)
-                            .updateCurrentIndex(value);
-                      });
-                    },
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        child: Image.asset(
-                          bannerList[index % bannerList.length],
-                          fit: BoxFit.cover,
-                        ),
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final controller = ref.watch(homePageControllerProvider);
+                      return PageView.builder(
+                        controller: controller,
+                        onPageChanged: (value) {
+                          ref
+                              .read(curruntIndexProvider.notifier)
+                              .updateCurrentIndex(value);
+                        },
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            child: Image.asset(
+                              bannerList[index % bannerList.length],
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
                 ),
-                Positioned(
-                  bottom: 10,
-                  left: mq.width / 2,
-                  child: SizedBox(
-                    width: mq.width * .1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: bannerList
-                          .asMap()
-                          .entries
-                          .map(
-                            (e) => Container(
-                              width: 10,
-                              height: 10,
-                              decoration: BoxDecoration(
-                                color:
-                                    e.key == (currentPage % bannerList.length)
+                Consumer(
+                  builder: (context, ref, child) {
+                    final currentPage = ref.watch(curruntIndexProvider);
+                    return Positioned(
+                      bottom: 10,
+                      left: mq.width / 2,
+                      child: SizedBox(
+                        width: mq.width * .1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: bannerList
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: e.key ==
+                                            (currentPage % bannerList.length)
                                         ? Colors.amber
                                         : Colors.grey.shade600,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -165,7 +154,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             Gap(mq.height * .005),
             HomeHorizontalListWidget(
-              // dataList: postList,
               categoryId: Categories.dog.toInt(),
             ),
             Gap(mq.height * .05),
@@ -175,9 +163,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               isMoreList: true,
             ),
             Gap(mq.height * .005),
-            HomeHorizontalListWidget(
-                // dataList: postList,
-                categoryId: Categories.cat.toInt()),
+            HomeHorizontalListWidget(categoryId: Categories.cat.toInt()),
             Gap(mq.height * .05),
             MoreList(
               title: '鳥の里親探し',

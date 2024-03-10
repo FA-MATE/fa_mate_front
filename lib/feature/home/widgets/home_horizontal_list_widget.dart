@@ -1,9 +1,10 @@
+import 'dart:developer';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
-import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';
+import 'package:fa_mate_front/init_models/tags/tags_model.dart';
 import 'package:fa_mate_front/main.dart';
-import 'package:fa_mate_front/providers/tag_provider.dart';
+import 'package:fa_mate_front/providers/app_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -12,23 +13,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeHorizontalListWidget extends ConsumerWidget {
-  // final AsyncValue<List<HomePostListModel>> dataList;
   final int categoryId;
 
   const HomeHorizontalListWidget({super.key, required this.categoryId});
 
-  // const HomeHorizontalListWidget(
-  //     {super.key, required this.dataList, required this.categoryName});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    log("build");
     mq = MediaQuery.of(context).size;
-    final getTagList = ref.watch(getTagsProvider);
     final getPostDataList =
         ref.watch(getPostCategoryListProvider(categoryId: categoryId));
+    final tagList = ref.watch(getTagsProvider);
+    late List<TagsModel> tags = [];
 
-    late List<TagListModel> tags = [];
-    return SizedBox(
+    return Container(
+        alignment: Alignment.centerLeft,
         height: mq.height * .29,
         child: getPostDataList.when(
           loading: () {
@@ -148,10 +147,12 @@ class HomeHorizontalListWidget extends ConsumerWidget {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 tags.clear();
-                for (var tag in data[index].tags) {
-                  final listindex = getTagList.value!
-                      .indexWhere((element) => element.id == tag["id"]);
-                  tags.add(getTagList.value![listindex]);
+                for (var tag in tagList) {
+                  for (var postTag in data[index].tags) {
+                    if (postTag.containsValue(tag.id)) {
+                      tags.add(tag);
+                    }
+                  }
                 }
                 return GestureDetector(
                   onTap: () {

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
+import 'package:fa_mate_front/init_models/init_model.dart';
 
 //SingleTone DataSource
 class DataSource {
@@ -83,6 +84,23 @@ class DataSource {
     return <HomePostListModel>[];
   }
 
+  Future<InitModel> initAppDataList() async {
+    try {
+      Response res = await dio.get("app_data");
+      late InitModel initData;
+      if (res.statusCode == 200) {
+        initData = InitModel.fromJson(res.data);
+      }
+
+      return initData;
+    } catch (e) {
+      Exception(e);
+    } finally {
+      // dio.close();
+    }
+    throw ();
+  }
+
   Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
     try {
       Response res =
@@ -107,7 +125,6 @@ class DataSource {
 
   Future<PostDetailModel> getPost(int postId) async {
     try {
-      log("abcddcd");
       Response res = await dio.get("posts/$postId.json");
       if (res.statusCode == 200) {
         return PostDetailModel.fromJson(res.data);

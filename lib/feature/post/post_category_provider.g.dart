@@ -7,7 +7,7 @@ part of 'post_category_provider.dart';
 // **************************************************************************
 
 String _$postUploadCategoryIndexHash() =>
-    r'7f7a27df1219407e05254b4602b7a5032b574b73';
+    r'a955e66c108aed7056bc62a9398bd3d2da6631f1';
 
 /// See also [PostUploadCategoryIndex].
 @ProviderFor(PostUploadCategoryIndex)
