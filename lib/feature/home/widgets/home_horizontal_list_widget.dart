@@ -5,6 +5,7 @@ import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart
 import 'package:fa_mate_front/init_models/tags/tags_model.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:fa_mate_front/providers/app_data_provider.dart';
+import 'package:fa_mate_front/utils/post_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -23,8 +24,10 @@ class HomeHorizontalListWidget extends ConsumerWidget {
     mq = MediaQuery.of(context).size;
     final getPostDataList =
         ref.watch(getPostCategoryListProvider(categoryId: categoryId));
-    final tagList = ref.watch(getTagsProvider);
-    late List<TagsModel> tags = [];
+    final cachedTags = ref.watch(getTagsProvider);
+    List<TagsModel> tagList = [];
+
+    final postUtils = PostUtils();
 
     return Container(
         alignment: Alignment.centerLeft,
@@ -147,12 +150,12 @@ class HomeHorizontalListWidget extends ConsumerWidget {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 //** tagsリストをクリア */
-                tags.clear();
+                tagList.clear();
                 final postTags = data[index].tags;
-                tags = postTags
-                    .map((tag) => tagList
-                        .firstWhere((cachedTag) => cachedTag.id == tag["id"]))
-                    .toList();
+
+                //** 該当投稿に含まれているTagを返す */
+                tagList =
+                    postUtils.findTag(tags: postTags, cachedTags: cachedTags);
 
                 return GestureDetector(
                   onTap: () {
@@ -224,7 +227,7 @@ class HomeHorizontalListWidget extends ConsumerWidget {
                           spacing: 2,
                           runSpacing: 3,
                           children: [
-                            ...tags.map(
+                            ...tagList.map(
                               (e) => TagWidget(title: e.name),
                             )
                           ],

@@ -29,6 +29,7 @@ class PostScreen extends ConsumerWidget {
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         title: const Text("ペットの里親お探し"),
         actions: [
           CustomNotificationIcon(

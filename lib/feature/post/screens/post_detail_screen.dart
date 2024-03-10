@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/constant/app_icons.dart';
@@ -5,7 +7,10 @@ import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/feature/post/provider/post_detail_provider.dart';
+import 'package:fa_mate_front/init_models/tags/tags_model.dart';
 import 'package:fa_mate_front/main.dart';
+import 'package:fa_mate_front/providers/app_data_provider.dart';
+import 'package:fa_mate_front/utils/post_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -22,7 +27,6 @@ class PostDetailScreen extends StatefulWidget {
 }
 
 class _PostDetailScreenState extends State<PostDetailScreen> {
-  //PageviewController currentpage
   int _currentPage = 0;
   bool _isFavorite = false;
   //Controller
@@ -79,7 +83,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       body: SingleChildScrollView(
         child: Consumer(
           builder: (context, ref, child) {
+            final postUtils = PostUtils();
             final postData = ref.watch(postDetailDataProvider(widget.postId));
+            final cachedTags = ref.watch(getTagsProvider);
+            List<TagsModel> tagList = [];
+
             return postData.when(
               error: (error, stackTrace) => Center(
                 child: Text(error.toString()),
@@ -228,11 +236,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               },
               data: (data) {
                 List<Map<String, dynamic>> images = [];
-                for (var element in data.postImages) {
-                  if (element["image_url"] != null) {
-                    images.add(element);
+                for (var image in data.postImages) {
+                  if (image["image_url"] != null) {
+                    images.add(image);
                   }
                 }
+                final postTags = data.tags;
+                //** 該当投稿に含まれているTagを返す */
+                tagList =
+                    postUtils.findTag(tags: postTags, cachedTags: cachedTags);
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -255,9 +268,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: images[index % images.length]
                                       ["image_url"],
-
-                                  // photoUrlList[index % photoUrlList.length],
-                                  fit: BoxFit.fitWidth,
+                                  fit: BoxFit.cover,
                                   placeholder: (context, url) => Center(
                                     child: Shimmer.fromColors(
                                         baseColor: Colors.grey,
@@ -307,7 +318,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextDefaultWidget(
-                                title: "${data.subCategoryId} (품종)",
+                                title: data.title,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -340,22 +351,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           ),
                           Row(
                             children: [
-                              const TagWidget(title: "2ヶ月"),
-                              Gap(mq.width * .02),
-                              const TagWidget(title: "東京"),
-                              Gap(mq.width * .02),
-                              const TagWidget(title: "メス"),
+                              ...tagList.map((tag) => Padding(
+                                    padding: EdgeInsets.only(
+                                      right: mq.width * .02,
+                                    ),
+                                    child: TagWidget(title: tag.name),
+                                  )),
                             ],
                           ),
                           Gap(mq.height * .02),
-                          TextDefaultWidget(
-                            textAlign: TextAlign.left,
-                            title: data.title,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            maxLines: 2,
-                          ),
-                          Gap(mq.height * .01),
                           TextDefaultWidget(
                             textAlign: TextAlign.left,
                             title: data.body,
@@ -387,28 +391,6 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 fontWeight: FontWeight.bold,
                               );
                             },
-                          ),
-                          const Column(
-                            children: [
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                              Text("abcd"),
-                            ],
                           ),
                         ],
                       ),
