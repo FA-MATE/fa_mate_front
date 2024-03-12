@@ -72,7 +72,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/selectCategory',
         name: selectCategory,
-        builder: (context, state) => const SelectCategory(),
+        builder: (context, state) =>
+            SelectCategory(selectCategory: state.extra as dynamic),
       ),
       GoRoute(
         path: '/notificationScreen',

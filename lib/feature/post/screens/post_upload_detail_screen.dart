@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:fa_mate_front/feature/post/post_category_provider.dart';
+import 'package:fa_mate_front/feature/post/provider/post_detail_provider.dart';
+import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_tags_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_widget.dart';
+import 'package:fa_mate_front/init_models/categories/categories_model.dart';
+import 'package:fa_mate_front/providers/app_data_provider.dart';
+import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -20,9 +23,30 @@ class PostDetailUploadScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    log("categoryId : $categoryId");
-    final a = ref.watch(postUploadCategoryIndexProvider);
-    log("category index: $a");
+    final categoryIndex =
+        ref.watch(postUploadCategoryIndexProvider(categoryId));
+
+    //** 분양자 정보&분양동물 정보 */
+    //** category 리스트 */
+    final categories = ref.watch(getCategoriesProvider);
+    //** 선택된 카테고리 모델 */
+    CategoriesModel categoryModel =
+        ref.watch(getCategoryItemProvider(categoryIndex));
+    //** 지역  */
+    final selectRegionList = ref.watch(getSelectTagListProvider(22));
+    //** 분양동물 정보 */
+    final selectPetAgeList = ref.watch(getSelectTagListProvider(23));
+    //** 성별  */
+    final selectGenderList = ref.watch(getSelectTagListProvider(24));
+
+    // ** 필수조건 */
+    //** 나이  */
+    final selectAgeList = ref.watch(getSelectCondisionListProvider(32));
+    //** 거주형태  */
+    final selectResidenceList = ref.watch(getSelectCondisionListProvider(33));
+    //** 애프터케어  */
+    final selectAfterCareList = ref.watch(getSelectCondisionListProvider(34));
+
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.black.withOpacity(0.5),
@@ -31,7 +55,9 @@ class PostDetailUploadScreen extends ConsumerWidget {
           icon: const Icon(Icons.close),
           onPressed: () => context.pop(),
         ),
-        title: const Text("정보 상세 입력"),
+        title: Text(
+          SelectInfomation.inputInfomation.toStringName(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -71,24 +97,26 @@ class PostDetailUploadScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TextDefaultWidget(title: "타이틀"),
+                  TextDefaultWidget(
+                    title: SelectInfomation.title.toStringName(),
+                  ),
                   Gap(mq.height * .01),
-                  const TextField(
+                  TextField(
                     decoration: InputDecoration(
-                      hintText: "타이틀을 적어주세요",
-                      border: OutlineInputBorder(
+                      hintText: SelectInfomation.inputTitle.toStringName(),
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
@@ -105,58 +133,63 @@ class PostDetailUploadScreen extends ConsumerWidget {
                     ),
                   ),
                   Gap(mq.height * .02),
-                  const TextDefaultWidget(title: "상세정보"),
-                  const Divider(),
-                  const MyPostInfomation(
-                    title: "카테고리",
-                    selectItem: "강아지",
-                    isIconData: true,
-                    tags: [],
+                  TextDefaultWidget(
+                    title: SelectInfomation.infomation.toStringName(),
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "품종",
+                  MyPostInfomationCategories(
+                    title: SelectInfomation.categories.toStringName(),
+                    selectItem: categoryModel.name,
                     isIconData: true,
-                    tags: [],
+                    subCategories: categories,
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "지역",
+                  MyPostInfomationCategories(
+                    title: SelectInfomation.types.toStringName(),
                     isIconData: true,
-                    tags: [],
+                    subCategories: categories,
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "나이",
+                  MyPostInfomationCategories(
+                    title: SelectInfomation.region.toStringName(),
                     isIconData: true,
-                    tags: [],
+                    subCategories: selectRegionList,
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "성별",
+                  MyPostInfomationCategories(
+                    title: SelectInfomation.age.toStringName(),
+                    isIconData: true,
+                    subCategories: selectPetAgeList,
+                  ),
+                  const Divider(),
+                  MyPostInfomationTags(
+                    title: SelectInfomation.gender.toStringName(),
                     isIconData: false,
-                    tags: ["osu", "mesu"],
+                    tags: selectGenderList.toList(),
                   ),
                   Gap(mq.height * .02),
-                  const TextDefaultWidget(title: "분양내용"),
+                  TextDefaultWidget(
+                    title: SelectInfomation.description.toStringName(),
+                  ),
                   Gap(mq.height * .02),
-                  const TextField(
+                  TextField(
                     maxLines: 5,
                     decoration: InputDecoration(
-                      hintText: "내용을 적어주세요",
-                      border: OutlineInputBorder(
+                      hintText:
+                          SelectInfomation.inputDescription.toStringName(),
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.grey,
                           width: 0.5,
@@ -174,24 +207,26 @@ class PostDetailUploadScreen extends ConsumerWidget {
                     ),
                   ),
                   Gap(mq.height * .02),
-                  const TextDefaultWidget(title: "최소 분양 조건"),
-                  const Divider(),
-                  const MyPostInfomation(
-                    title: "나이",
-                    isIconData: false,
-                    tags: ["조건없음", "성인만", "가족 중 성인 있음"],
+                  TextDefaultWidget(
+                    title: SelectInfomation.minimumConditions.toStringName(),
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "거주형태",
+                  MyPostInfomationTags(
+                    title: SelectInfomation.age.toStringName(),
                     isIconData: false,
-                    tags: ["조건없음", "주택", "마당있는 주택"],
+                    tags: selectAgeList.toList(),
                   ),
                   const Divider(),
-                  const MyPostInfomation(
-                    title: "분양 후 케어",
+                  MyPostInfomationTags(
+                    title: SelectInfomation.residenceType.toStringName(),
                     isIconData: false,
-                    tags: ["조건없음", "연락가능", "매달 사진 10장"],
+                    tags: selectResidenceList.toList(),
+                  ),
+                  const Divider(),
+                  MyPostInfomationTags(
+                    title: SelectInfomation.afterCare.toStringName(),
+                    isIconData: false,
+                    tags: selectAfterCareList.toList(),
                   ),
                   Gap(mq.height * .1),
                 ],

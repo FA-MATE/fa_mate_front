@@ -28,7 +28,6 @@ class CurruntIndex extends _$CurruntIndex {
   @override
   int build() {
     ref.onDispose(() {
-      log("dispose currentIdnex");
       timer?.cancel();
     });
     autoMovePage();

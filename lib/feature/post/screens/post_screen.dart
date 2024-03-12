@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/common/widgets/top_title_widget.dart';
+import 'package:fa_mate_front/feature/post/provider/post_detail_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_category_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_hint_widget.dart';
 import 'package:fa_mate_front/main.dart';
@@ -18,7 +21,6 @@ class PostScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     mq = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(

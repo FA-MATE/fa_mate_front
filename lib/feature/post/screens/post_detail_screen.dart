@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/constant/app_icons.dart';
@@ -317,10 +315,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextDefaultWidget(
-                                title: data.title,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                              Flexible(
+                                child: TextDefaultWidget(
+                                  textAlign: TextAlign.left,
+                                  maxLines: 2,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  title: data.title,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Row(
                                 children: [

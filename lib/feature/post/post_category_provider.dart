@@ -4,11 +4,7 @@ part 'post_category_provider.g.dart';
 @Riverpod(keepAlive: true)
 class PostUploadCategoryIndex extends _$PostUploadCategoryIndex {
   @override
-  int build() {
-    return 0;
-  }
-
-  void setupCategoryIndex(int index) {
-    state = index;
+  int build(int index) {
+    return index;
   }
 }
