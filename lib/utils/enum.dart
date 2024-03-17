@@ -6,11 +6,52 @@ enum Categories {
   int toInt() {
     switch (this) {
       case dog:
-        return 24;
+        return 7;
       case cat:
-        return 25;
+        return 8;
       case bird:
-        return 26;
+        return 9;
+      default:
+        return -1;
+    }
+  }
+}
+
+enum Requirements {
+  age,
+  residence,
+  afterCare;
+
+  int toInto() {
+    switch (this) {
+      case age:
+        return 7;
+      case residence:
+        return 8;
+      case afterCare:
+        return 9;
+      default:
+        return -1;
+    }
+  }
+}
+
+enum Tags {
+  region,
+  age,
+  gender,
+  inoculation;
+
+  int toInt() {
+    switch (this) {
+      case region:
+        return 9;
+      case age:
+        return 10;
+      case gender:
+        return 11;
+      case inoculation:
+        return 12;
       default:
         return -1;
     }
@@ -32,6 +73,7 @@ enum SelectInfomation {
   types,
   region,
   age,
+  inoculation,
   gender;
 
   String toStringName() {
@@ -64,6 +106,8 @@ enum SelectInfomation {
         return "地域";
       case age:
         return "年齢";
+      case inoculation:
+        return "接種";
       case gender:
         return "性別";
       default:

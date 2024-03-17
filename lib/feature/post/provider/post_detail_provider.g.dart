@@ -201,38 +201,39 @@ final isLoadingProvider = AutoDisposeNotifierProvider<IsLoading, bool>.internal(
 );
 
 typedef _$IsLoading = AutoDisposeNotifier<bool>;
-String _$getCategoryItemHash() => r'd3ec5b8187f50e40d87afbef86158f58db7bbc10';
+String _$getSubCategoryListHash() =>
+    r'1d928690c18a4d5401ab40ef54392c0245e1cb7d';
 
-abstract class _$GetCategoryItem
-    extends BuildlessAutoDisposeNotifier<CategoriesModel> {
+abstract class _$GetSubCategoryList
+    extends BuildlessAutoDisposeNotifier<List<SubCategoriesModel>> {
   late final int categoryId;
 
-  CategoriesModel build(
+  List<SubCategoriesModel> build(
     int categoryId,
   );
 }
 
-/// See also [GetCategoryItem].
-@ProviderFor(GetCategoryItem)
-const getCategoryItemProvider = GetCategoryItemFamily();
+/// See also [GetSubCategoryList].
+@ProviderFor(GetSubCategoryList)
+const getSubCategoryListProvider = GetSubCategoryListFamily();
 
-/// See also [GetCategoryItem].
-class GetCategoryItemFamily extends Family<CategoriesModel> {
-  /// See also [GetCategoryItem].
-  const GetCategoryItemFamily();
+/// See also [GetSubCategoryList].
+class GetSubCategoryListFamily extends Family<List<SubCategoriesModel>> {
+  /// See also [GetSubCategoryList].
+  const GetSubCategoryListFamily();
 
-  /// See also [GetCategoryItem].
-  GetCategoryItemProvider call(
+  /// See also [GetSubCategoryList].
+  GetSubCategoryListProvider call(
     int categoryId,
   ) {
-    return GetCategoryItemProvider(
+    return GetSubCategoryListProvider(
       categoryId,
     );
   }
 
   @override
-  GetCategoryItemProvider getProviderOverride(
-    covariant GetCategoryItemProvider provider,
+  GetSubCategoryListProvider getProviderOverride(
+    covariant GetSubCategoryListProvider provider,
   ) {
     return call(
       provider.categoryId,
@@ -251,30 +252,30 @@ class GetCategoryItemFamily extends Family<CategoriesModel> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'getCategoryItemProvider';
+  String? get name => r'getSubCategoryListProvider';
 }
 
-/// See also [GetCategoryItem].
-class GetCategoryItemProvider
-    extends AutoDisposeNotifierProviderImpl<GetCategoryItem, CategoriesModel> {
-  /// See also [GetCategoryItem].
-  GetCategoryItemProvider(
+/// See also [GetSubCategoryList].
+class GetSubCategoryListProvider extends AutoDisposeNotifierProviderImpl<
+    GetSubCategoryList, List<SubCategoriesModel>> {
+  /// See also [GetSubCategoryList].
+  GetSubCategoryListProvider(
     int categoryId,
   ) : this._internal(
-          () => GetCategoryItem()..categoryId = categoryId,
-          from: getCategoryItemProvider,
-          name: r'getCategoryItemProvider',
+          () => GetSubCategoryList()..categoryId = categoryId,
+          from: getSubCategoryListProvider,
+          name: r'getSubCategoryListProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$getCategoryItemHash,
-          dependencies: GetCategoryItemFamily._dependencies,
+                  : _$getSubCategoryListHash,
+          dependencies: GetSubCategoryListFamily._dependencies,
           allTransitiveDependencies:
-              GetCategoryItemFamily._allTransitiveDependencies,
+              GetSubCategoryListFamily._allTransitiveDependencies,
           categoryId: categoryId,
         );
 
-  GetCategoryItemProvider._internal(
+  GetSubCategoryListProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -287,8 +288,8 @@ class GetCategoryItemProvider
   final int categoryId;
 
   @override
-  CategoriesModel runNotifierBuild(
-    covariant GetCategoryItem notifier,
+  List<SubCategoriesModel> runNotifierBuild(
+    covariant GetSubCategoryList notifier,
   ) {
     return notifier.build(
       categoryId,
@@ -296,10 +297,10 @@ class GetCategoryItemProvider
   }
 
   @override
-  Override overrideWith(GetCategoryItem Function() create) {
+  Override overrideWith(GetSubCategoryList Function() create) {
     return ProviderOverride(
       origin: this,
-      override: GetCategoryItemProvider._internal(
+      override: GetSubCategoryListProvider._internal(
         () => create()..categoryId = categoryId,
         from: from,
         name: null,
@@ -312,14 +313,15 @@ class GetCategoryItemProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<GetCategoryItem, CategoriesModel>
-      createElement() {
-    return _GetCategoryItemProviderElement(this);
+  AutoDisposeNotifierProviderElement<GetSubCategoryList,
+      List<SubCategoriesModel>> createElement() {
+    return _GetSubCategoryListProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetCategoryItemProvider && other.categoryId == categoryId;
+    return other is GetSubCategoryListProvider &&
+        other.categoryId == categoryId;
   }
 
   @override
@@ -331,18 +333,19 @@ class GetCategoryItemProvider
   }
 }
 
-mixin GetCategoryItemRef on AutoDisposeNotifierProviderRef<CategoriesModel> {
+mixin GetSubCategoryListRef
+    on AutoDisposeNotifierProviderRef<List<SubCategoriesModel>> {
   /// The parameter `categoryId` of this provider.
   int get categoryId;
 }
 
-class _GetCategoryItemProviderElement
-    extends AutoDisposeNotifierProviderElement<GetCategoryItem, CategoriesModel>
-    with GetCategoryItemRef {
-  _GetCategoryItemProviderElement(super.provider);
+class _GetSubCategoryListProviderElement
+    extends AutoDisposeNotifierProviderElement<GetSubCategoryList,
+        List<SubCategoriesModel>> with GetSubCategoryListRef {
+  _GetSubCategoryListProviderElement(super.provider);
 
   @override
-  int get categoryId => (origin as GetCategoryItemProvider).categoryId;
+  int get categoryId => (origin as GetSubCategoryListProvider).categoryId;
 }
 
 String _$getSelectTagListHash() => r'743c8d1771263b1924f7f440365cf4bc9cd441a1';

@@ -1,11 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:fa_mate_front/feature/post/post_category_provider.dart';
+import 'dart:developer';
+
 import 'package:fa_mate_front/feature/post/provider/post_detail_provider.dart';
+import 'package:fa_mate_front/feature/post/provider/post_input_provider.dart';
+import 'package:fa_mate_front/feature/post/provider/post_upload_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_tags_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_widget.dart';
-import 'package:fa_mate_front/init_models/categories/categories_model.dart';
 import 'package:fa_mate_front/providers/app_data_provider.dart';
 import 'package:fa_mate_front/utils/enum.dart';
+import 'package:fa_mate_front/utils/post_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -17,44 +20,64 @@ import 'package:fa_mate_front/main.dart';
 class PostDetailUploadScreen extends ConsumerWidget {
 // class PostDetailUploadScreen extends StatelessWidget {
 
-  final int categoryId;
-
-  const PostDetailUploadScreen({super.key, required this.categoryId});
+  const PostDetailUploadScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoryIndex =
-        ref.watch(postUploadCategoryIndexProvider(categoryId));
+    //** Post Model 선택된 정보들 */
+    final postUploadModel = ref.watch(postUploadProvider);
 
-    //** 분양자 정보&분양동물 정보 */
+    log(postUploadModel.toString());
+//** 항목 리스트  */
     //** category 리스트 */
     final categories = ref.watch(getCategoriesProvider);
-    //** 선택된 카테고리 모델 */
-    CategoriesModel categoryModel =
-        ref.watch(getCategoryItemProvider(categoryIndex));
+
+    //** 선택된 카테고리의 서브 카테고리 리스트 */
+    final subCategoryList = ref.watch(getSubCategoryListProvider(
+        postUploadModel.categoryId != null ? postUploadModel.categoryId! : 0));
+
     //** 지역  */
-    final selectRegionList = ref.watch(getSelectTagListProvider(22));
+    final selectRegionList =
+        ref.watch(getSelectTagListProvider(Tags.region.toInt()));
     //** 분양동물 정보 */
-    final selectPetAgeList = ref.watch(getSelectTagListProvider(23));
+    final selectPetAgeList =
+        ref.watch(getSelectTagListProvider(Tags.age.toInt()));
     //** 성별  */
-    final selectGenderList = ref.watch(getSelectTagListProvider(24));
+    final selectGenderList =
+        ref.watch(getSelectTagListProvider(Tags.gender.toInt()));
+    //** 접종  */
+    final selectInoculationList =
+        ref.watch(getSelectTagListProvider(Tags.inoculation.toInt()));
 
     // ** 필수조건 */
     //** 나이  */
-    final selectAgeList = ref.watch(getSelectCondisionListProvider(32));
+    final selectAgeList =
+        ref.watch(getSelectCondisionListProvider(Requirements.age.toInto()));
     //** 거주형태  */
-    final selectResidenceList = ref.watch(getSelectCondisionListProvider(33));
+    final selectResidenceList = ref
+        .watch(getSelectCondisionListProvider(Requirements.residence.toInto()));
     //** 애프터케어  */
-    final selectAfterCareList = ref.watch(getSelectCondisionListProvider(34));
+    final selectAfterCareList = ref
+        .watch(getSelectCondisionListProvider(Requirements.afterCare.toInto()));
+
+    //** Post Util */
+    final postUtil = PostUtils();
+
+    final titleController = ref.watch(postTitleInputProvider);
+    final descController = ref.watch(postDescriptionInputProvider);
 
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.black.withOpacity(0.5),
         elevation: 1,
         leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => context.pop(),
-        ),
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              context.pop();
+              ref.invalidate(postUploadProvider);
+            }),
         title: Text(
           SelectInfomation.inputInfomation.toStringName(),
         ),
@@ -102,6 +125,8 @@ class PostDetailUploadScreen extends ConsumerWidget {
                   ),
                   Gap(mq.height * .01),
                   TextField(
+                    controller: titleController,
+                    maxLength: 40,
                     decoration: InputDecoration(
                       hintText: SelectInfomation.inputTitle.toStringName(),
                       border: const OutlineInputBorder(
@@ -124,14 +149,6 @@ class PostDetailUploadScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: double.infinity,
-                    child: const TextDefaultWidget(
-                      title: "0/40",
-                      fontColor: Colors.black54,
-                    ),
-                  ),
                   Gap(mq.height * .02),
                   TextDefaultWidget(
                     title: SelectInfomation.infomation.toStringName(),
@@ -139,25 +156,52 @@ class PostDetailUploadScreen extends ConsumerWidget {
                   const Divider(),
                   MyPostInfomationCategories(
                     title: SelectInfomation.categories.toStringName(),
-                    selectItem: categoryModel.name,
+                    selectItem: postUploadModel.categoryId != null
+                        ? categories
+                            .firstWhere((category) =>
+                                category.id == postUploadModel.categoryId)
+                            .name
+                        : "",
                     isIconData: true,
                     subCategories: categories,
                   ),
                   const Divider(),
                   MyPostInfomationCategories(
                     title: SelectInfomation.types.toStringName(),
+                    selectItem: postUploadModel.subCategoryId != null
+                        ? subCategoryList
+                            .firstWhere((tag) =>
+                                tag.id == postUploadModel.subCategoryId)
+                            .name
+                        : "",
                     isIconData: true,
-                    subCategories: categories,
+                    subCategories: subCategoryList,
                   ),
                   const Divider(),
                   MyPostInfomationCategories(
                     title: SelectInfomation.region.toStringName(),
+                    selectItem: postUtil.screenTagNullCheck(
+                                postUploadModel, Tags.region.toInt()) !=
+                            null
+                        ? postUploadModel.tags
+                            ?.firstWhere(
+                                (tag) => tag.tagGroup.id == Tags.region.toInt())
+                            .name
+                        : "",
                     isIconData: true,
                     subCategories: selectRegionList,
                   ),
                   const Divider(),
                   MyPostInfomationCategories(
                     title: SelectInfomation.age.toStringName(),
+                    selectItem: postUtil.screenTagNullCheck(
+                                postUploadModel, Tags.age.toInt()) !=
+                            null
+                        ? postUploadModel.tags
+                            ?.firstWhere(
+                                (tag) => tag.tagGroup.id == Tags.age.toInt())
+                            .name
+                        : "",
                     isIconData: true,
                     subCategories: selectPetAgeList,
                   ),
@@ -166,6 +210,16 @@ class PostDetailUploadScreen extends ConsumerWidget {
                     title: SelectInfomation.gender.toStringName(),
                     isIconData: false,
                     tags: selectGenderList.toList(),
+                    id: Tags.gender.toInt(),
+                    isTags: true,
+                  ),
+                  const Divider(),
+                  MyPostInfomationTags(
+                    title: SelectInfomation.inoculation.toStringName(),
+                    isIconData: false,
+                    tags: selectInoculationList.toList(),
+                    id: Tags.inoculation.toInt(),
+                    isTags: true,
                   ),
                   Gap(mq.height * .02),
                   TextDefaultWidget(
@@ -173,6 +227,8 @@ class PostDetailUploadScreen extends ConsumerWidget {
                   ),
                   Gap(mq.height * .02),
                   TextField(
+                    controller: descController,
+                    maxLength: 1000,
                     maxLines: 5,
                     decoration: InputDecoration(
                       hintText:
@@ -197,15 +253,6 @@ class PostDetailUploadScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  Gap(mq.height * .01),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: double.infinity,
-                    child: const TextDefaultWidget(
-                      title: "0/1000",
-                      fontColor: Colors.black54,
-                    ),
-                  ),
                   Gap(mq.height * .02),
                   TextDefaultWidget(
                     title: SelectInfomation.minimumConditions.toStringName(),
@@ -215,23 +262,51 @@ class PostDetailUploadScreen extends ConsumerWidget {
                     title: SelectInfomation.age.toStringName(),
                     isIconData: false,
                     tags: selectAgeList.toList(),
+                    id: Requirements.age.toInto(),
+                    isTags: false,
                   ),
                   const Divider(),
                   MyPostInfomationTags(
                     title: SelectInfomation.residenceType.toStringName(),
                     isIconData: false,
                     tags: selectResidenceList.toList(),
+                    id: Requirements.residence.toInto(),
+                    isTags: false,
                   ),
                   const Divider(),
                   MyPostInfomationTags(
                     title: SelectInfomation.afterCare.toStringName(),
                     isIconData: false,
                     tags: selectAfterCareList.toList(),
+                    id: Requirements.afterCare.toInto(),
+                    isTags: false,
                   ),
-                  Gap(mq.height * .1),
                 ],
               ),
             ),
+            Gap(mq.height * .02),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: mq.width * .05),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(mq.width, mq.width * .11),
+                    elevation: 1,
+                    backgroundColor: AppColors.searchBackground,
+                    foregroundColor: AppColors.white,
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
+                onPressed: () {
+                  ref.read(postUploadProvider.notifier).setData(
+                      postUploadModel.copyWith(
+                          title: titleController.text,
+                          body: descController.text));
+                  context.push('/postUploadConfirmScreen');
+                },
+                child: const TextDefaultWidget(title: "内容確認"),
+              ),
+            ),
+            Gap(mq.height * .05),
           ],
         ),
       ),

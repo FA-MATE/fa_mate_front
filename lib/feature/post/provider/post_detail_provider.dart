@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
 import 'package:fa_mate_front/helper/repository.dart';
-import 'package:fa_mate_front/init_models/categories/categories_model.dart';
+import 'package:fa_mate_front/init_models/categories/sub_categories_model.dart';
 import 'package:fa_mate_front/providers/app_data_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'post_detail_provider.g.dart';
@@ -17,6 +15,7 @@ class PostDetailId extends _$PostDetailId {
   }
 }
 
+//** 選択したアイテムの詳細画面Model */
 @riverpod
 class PostDetailData extends _$PostDetailData {
   final _postRepository = PostRepository();
@@ -41,18 +40,15 @@ class IsLoading extends _$IsLoading {
 }
 
 @riverpod
-class GetCategoryItem extends _$GetCategoryItem {
+class GetSubCategoryList extends _$GetSubCategoryList {
   @override
-  CategoriesModel build(int categoryId) {
-    late CategoriesModel category;
-    final cachedCategories = ref.watch(getCategoriesProvider);
-    if (categoryId.isNegative) {
-      throw ();
-    } else {
-      category =
-          cachedCategories.firstWhere((cached) => cached.id == categoryId);
-      return category;
-    }
+  List<SubCategoriesModel> build(int categoryId) {
+    List<SubCategoriesModel> subCategories = [];
+    final cachedSubCategories = ref.watch(getSubCategoriesProvider);
+    subCategories = cachedSubCategories
+        .where((sub) => sub.categoryId == categoryId)
+        .toList();
+    return subCategories;
   }
 }
 

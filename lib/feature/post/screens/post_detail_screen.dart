@@ -234,7 +234,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               },
               data: (data) {
                 List<Map<String, dynamic>> images = [];
-                for (var image in data.postImages) {
+                for (var image in data.postImages!) {
                   if (image["image_url"] != null) {
                     images.add(image);
                   }
@@ -242,7 +242,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 final postTags = data.tags;
                 //** 該当投稿に含まれているTagを返す */
                 tagList =
-                    postUtils.findTag(tags: postTags, cachedTags: cachedTags);
+                    postUtils.findTag(tags: postTags!, cachedTags: cachedTags);
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +266,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: images[index % images.length]
                                       ["image_url"],
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                   placeholder: (context, url) => Center(
                                     child: Shimmer.fromColors(
                                         baseColor: Colors.grey,
@@ -386,7 +386,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
                           ),
-                          ...data.conditions.map(
+                          ...data.conditions!.map(
                             (e) {
                               return TextDefaultWidget(
                                 title: "• ${e["id"]}",

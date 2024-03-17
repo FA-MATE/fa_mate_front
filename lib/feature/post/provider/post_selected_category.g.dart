@@ -7,7 +7,7 @@ part of 'post_selected_category.dart';
 // **************************************************************************
 
 String _$postSelectedCategoryNameHash() =>
-    r'5780555cccaa7a78bdcfa0eb2c1486d718358f96';
+    r'f04d4b22489ee6bd3e399a921cdecb04d6261a8e';
 
 /// See also [PostSelectedCategoryName].
 @ProviderFor(PostSelectedCategoryName)

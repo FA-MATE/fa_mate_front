@@ -7,17 +7,17 @@ class PostDetailModel with _$PostDetailModel {
   // ignore: invalid_annotation_target
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory PostDetailModel({
-    required int id,
+    int? id,
     required String title,
     required String body,
-    required int categoryId,
-    required int subCategoryId,
-    required Map<String, dynamic> user,
-    required List<Map<String, dynamic>> tags,
-    required List<Map<String, dynamic>> conditions,
-    required List<Map<String, dynamic>> postImages,
-    required String createdAt,
-    required String updatedAt,
+    int? categoryId,
+    int? subCategoryId,
+    Map<String, dynamic>? user,
+    List<Map<String, dynamic>>? tags,
+    List<Map<String, dynamic>>? conditions,
+    List<Map<String, dynamic>>? postImages,
+    String? createdAt,
+    String? updatedAt,
   }) = _PostDetailModel;
 
   factory PostDetailModel.fromJson(Map<String, dynamic> json) =>

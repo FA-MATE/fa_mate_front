@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';

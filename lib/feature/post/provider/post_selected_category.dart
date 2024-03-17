@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'post_selected_category.g.dart';
 
@@ -7,9 +5,7 @@ part 'post_selected_category.g.dart';
 class PostSelectedCategoryName extends _$PostSelectedCategoryName {
   @override
   String build() {
-    ref.onDispose(() {
-      log("build");
-    });
+    ref.onDispose(() {});
     return "";
   }
 

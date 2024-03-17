@@ -10,6 +10,7 @@ _$SubCategoriesModelImpl _$$SubCategoriesModelImplFromJson(
         Map<String, dynamic> json) =>
     _$SubCategoriesModelImpl(
       id: json['id'] as int,
+      categoryId: json['category_id'] as int,
       name: json['name'] as String,
       orderNo: json['order_no'] as int,
     );
@@ -18,6 +19,7 @@ Map<String, dynamic> _$$SubCategoriesModelImplToJson(
         _$SubCategoriesModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'category_id': instance.categoryId,
       'name': instance.name,
       'order_no': instance.orderNo,
     };

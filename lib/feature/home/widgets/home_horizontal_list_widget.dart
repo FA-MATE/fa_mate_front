@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';

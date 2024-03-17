@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/feature/post/provider/post_selected_category.dart';
@@ -21,7 +19,7 @@ class MyPostInfomationCategories extends StatelessWidget {
     super.key,
     required this.isIconData,
     required this.title,
-    this.selectItem,
+    this.selectItem = "",
     required this.subCategories,
   });
 
@@ -51,10 +49,11 @@ class MyPostInfomationCategories extends StatelessWidget {
                     ),
                   ),
                   TextDefaultWidget(
-                    title:
-                        selectItem ?? SelectInfomation.essential.toStringName(),
+                    title: selectItem == ""
+                        ? SelectInfomation.essential.toStringName()
+                        : selectItem!,
                     fontColor:
-                        selectItem == null ? Colors.black54 : AppColors.black,
+                        selectItem == "" ? Colors.black54 : AppColors.black,
                   ),
                   Gap(mq.width * .05),
                   Icon(
