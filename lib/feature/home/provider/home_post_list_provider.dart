@@ -16,7 +16,7 @@ class GetPostList extends _$GetPostList {
 class GetPostCategoryList extends _$GetPostCategoryList {
   final _postRepository = PostRepository();
   @override
-  Future<List<HomePostListModel>> build({int? categoryId}) {
-    return _postRepository.getPostJoinCategory(categoryId ?? -1);
+  Future<List<HomePostListModel>> build({int? categoryId, int? count}) {
+    return _postRepository.getPostJoinCategory(categoryId ?? -1, count ?? 10);
   }
 }

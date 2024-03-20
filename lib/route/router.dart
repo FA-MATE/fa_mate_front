@@ -1,3 +1,4 @@
+import 'package:fa_mate_front/feature/more_post/screens/more_post.dart';
 import 'package:fa_mate_front/feature/notification/screens/notification_screen.dart';
 import 'package:fa_mate_front/feature/home/screens/home_screen.dart';
 import 'package:fa_mate_front/feature/mypage/screens/mypage_screen.dart';
@@ -87,6 +88,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/postUploadConfirmScreen',
         name: postUploadConfirmScreen,
         builder: (context, state) => PostUploadConfirmScreen(
+          key: state.pageKey,
+        ),
+      ),
+      GoRoute(
+        path: '/morePostScreen',
+        name: morePostScreen,
+        builder: (context, state) => MorePostScreen(
+          title: state.extra as String,
           key: state.pageKey,
         ),
       ),

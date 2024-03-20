@@ -98,17 +98,17 @@ class DataSource {
     throw ();
   }
 
-  Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
+  Future<List<HomePostListModel>> getPostJoinCategory(
+      int categoryId, int count) async {
     try {
       Response res =
-          await dio.get("posts.json?per=10&page=1&category_id=$categoryId");
+          await dio.get("posts.json?per=$count&page=1&category_id=$categoryId");
       List<HomePostListModel> postList = [];
       if (res.statusCode == 200) {
         for (var data in res.data) {
           postList.add(HomePostListModel.fromJson(data));
         }
-
-        return postList;
+        return postList.reversed.toList();
       } else {
         return <HomePostListModel>[];
       }

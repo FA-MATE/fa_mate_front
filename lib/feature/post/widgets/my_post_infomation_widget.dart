@@ -27,47 +27,50 @@ class MyPostInfomationCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        return GestureDetector(
+        return InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () {
             ref.read(postSelectedCategoryNameProvider.notifier).setState(title);
             isIconData
                 ? context.push("/selectCategory", extra: subCategories)
                 : "";
           },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: TextDefaultWidget(
-                        title: title,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: mq.height * .005),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: TextDefaultWidget(
+                          title: title,
+                        ),
                       ),
                     ),
-                  ),
-                  TextDefaultWidget(
-                    title: selectItem == ""
-                        ? SelectInfomation.essential.toStringName()
-                        : selectItem!,
-                    fontColor:
-                        selectItem == "" ? Colors.black54 : AppColors.black,
-                  ),
-                  Gap(mq.width * .05),
-                  Icon(
-                    Iconsax.arrow_right_34,
-                    color: isIconData ? AppColors.black : Colors.transparent,
-                  )
-                ],
-              ),
-            ],
+                    TextDefaultWidget(
+                      title: selectItem == ""
+                          ? SelectInfomation.essential.toStringName()
+                          : selectItem!,
+                      fontColor:
+                          selectItem == "" ? Colors.black54 : AppColors.black,
+                    ),
+                    Gap(mq.width * .05),
+                    Icon(
+                      Iconsax.arrow_right_34,
+                      color: isIconData ? AppColors.black : Colors.transparent,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
     );
   }
 }
-
-int? currentIndex = 0;

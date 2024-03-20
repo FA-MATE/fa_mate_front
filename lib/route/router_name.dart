@@ -8,3 +8,4 @@ const String postDetail = 'postDetail';
 const String selectCategory = 'selectCategory';
 const String notificationScreen = 'notificationScreen';
 const String postUploadConfirmScreen = 'postUploadConfirmScreen';
+const String morePostScreen = 'morePostScreen';

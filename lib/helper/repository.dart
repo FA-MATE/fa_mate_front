@@ -26,8 +26,9 @@ class PostRepository {
     return await _dataSource.getPostList();
   }
 
-  Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
-    return await _dataSource.getPostJoinCategory(categoryId);
+  Future<List<HomePostListModel>> getPostJoinCategory(
+      int categoryId, int count) async {
+    return await _dataSource.getPostJoinCategory(categoryId, count);
   }
 
   Future<PostDetailModel> getPost(int postId) async {

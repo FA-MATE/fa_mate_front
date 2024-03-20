@@ -20,8 +20,9 @@ class HomeHorizontalListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     mq = MediaQuery.of(context).size;
-    final getPostDataList =
-        ref.watch(getPostCategoryListProvider(categoryId: categoryId));
+    final getPostDataList = ref.watch(
+      getPostCategoryListProvider(categoryId: categoryId, count: 10),
+    );
     final cachedTags = ref.watch(getTagsProvider);
     List<TagsModel> tagList = [];
 

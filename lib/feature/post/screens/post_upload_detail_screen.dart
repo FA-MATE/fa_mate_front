@@ -1,8 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:fa_mate_front/feature/post/provider/post_detail_provider.dart';
-import 'package:fa_mate_front/feature/post/provider/post_input_provider.dart';
 import 'package:fa_mate_front/feature/post/provider/post_upload_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_tags_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/my_post_infomation_widget.dart';
@@ -17,19 +13,24 @@ import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/main.dart';
 
-class PostDetailUploadScreen extends ConsumerWidget {
-// class PostDetailUploadScreen extends StatelessWidget {
-
-  const PostDetailUploadScreen({
-    super.key,
-  });
+class PostDetailUploadScreen extends ConsumerStatefulWidget {
+  const PostDetailUploadScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PostDetailUploadScreenState();
+}
+
+class _PostDetailUploadScreenState
+    extends ConsumerState<PostDetailUploadScreen> {
+  final titleController = TextEditingController();
+  final bodyController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     //** Post Model 선택된 정보들 */
     final postUploadModel = ref.watch(postUploadProvider);
 
-    log(postUploadModel.toString());
 //** 항목 리스트  */
     //** category 리스트 */
     final categories = ref.watch(getCategoriesProvider);
@@ -65,8 +66,8 @@ class PostDetailUploadScreen extends ConsumerWidget {
     //** Post Util */
     final postUtil = PostUtils();
 
-    final titleController = ref.watch(postTitleInputProvider);
-    final descController = ref.watch(postDescriptionInputProvider);
+    // final titleController = ref.watch(postTitleInputProvider);
+    // final descController = ref.watch(postDescriptionInputProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -125,6 +126,9 @@ class PostDetailUploadScreen extends ConsumerWidget {
                   ),
                   Gap(mq.height * .01),
                   TextField(
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                     controller: titleController,
                     maxLength: 40,
                     decoration: InputDecoration(
@@ -227,7 +231,10 @@ class PostDetailUploadScreen extends ConsumerWidget {
                   ),
                   Gap(mq.height * .02),
                   TextField(
-                    controller: descController,
+                    controller: bodyController,
+                    onChanged: (value) {
+                      setState(() {});
+                    },
                     maxLength: 1000,
                     maxLines: 5,
                     decoration: InputDecoration(
@@ -289,6 +296,8 @@ class PostDetailUploadScreen extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: mq.width * .05),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    // disabledBackgroundColor: AppColors.grey,
+                    // disabledForegroundColor: AppColors.black,
                     fixedSize: Size(mq.width, mq.width * .11),
                     elevation: 1,
                     backgroundColor: AppColors.searchBackground,
@@ -296,13 +305,16 @@ class PostDetailUploadScreen extends ConsumerWidget {
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                     )),
-                onPressed: () {
-                  ref.read(postUploadProvider.notifier).setData(
-                      postUploadModel.copyWith(
-                          title: titleController.text,
-                          body: descController.text));
-                  context.push('/postUploadConfirmScreen');
-                },
+                onPressed:
+                    bodyController.text.isEmpty || titleController.text.isEmpty
+                        ? null
+                        : () {
+                            ref.read(postUploadProvider.notifier).setData(
+                                postUploadModel.copyWith(
+                                    title: titleController.text,
+                                    body: bodyController.text));
+                            context.push('/postUploadConfirmScreen');
+                          },
                 child: const TextDefaultWidget(title: "内容確認"),
               ),
             ),

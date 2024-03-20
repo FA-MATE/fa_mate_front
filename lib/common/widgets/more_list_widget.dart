@@ -1,3 +1,4 @@
+import 'package:fa_mate_front/common/constant/app_icons.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:flutter/material.dart';
 
@@ -31,11 +32,19 @@ class MoreList extends StatelessWidget {
           isMoreList
               ? GestureDetector(
                   onTap: onTap,
-                  child: const Text(
-                    "もっと見る >",
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                  child: const Row(
+                    children: [
+                      Text(
+                        "もっと見る",
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                      Icon(
+                        AppIcons.arrowRight,
+                        size: 14,
+                      ),
+                    ],
                   ),
                 )
               : const SizedBox.shrink(),

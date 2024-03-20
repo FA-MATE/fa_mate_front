@@ -4,11 +4,13 @@ import 'package:fa_mate_front/common/widgets/more_list_widget.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/page_controller_provider.dart';
 import 'package:fa_mate_front/feature/home/widgets/home_horizontal_list_widget.dart';
+import 'package:fa_mate_front/feature/more_post/provider/more_post_provider.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:fa_mate_front/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 List<Widget> dummyList = [
   const TagWidget(title: "犬"),
@@ -151,28 +153,64 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Gap(mq.height * .05),
-              MoreList(
-                title: '犬の里親探し',
-                onTap: () {},
-                isMoreList: true,
+              Consumer(
+                builder: (context, ref, child) {
+                  return MoreList(
+                    title: '犬の里親探し',
+                    onTap: () {
+                      ref
+                          .read(selectMorePostIdProvider.notifier)
+                          .setPostId(Categories.dog.toInt());
+                      context.push(
+                        "/morePostScreen",
+                        extra: '犬の里親探し',
+                      );
+                    },
+                    isMoreList: true,
+                  );
+                },
               ),
               Gap(mq.height * .005),
               HomeHorizontalListWidget(
                 categoryId: Categories.dog.toInt(),
               ),
               Gap(mq.height * .02),
-              MoreList(
-                title: '猫の里親探し',
-                onTap: () {},
-                isMoreList: true,
+              Consumer(
+                builder: (context, ref, child) {
+                  return MoreList(
+                    title: '猫の里親探し',
+                    onTap: () {
+                      ref
+                          .read(selectMorePostIdProvider.notifier)
+                          .setPostId(Categories.cat.toInt());
+                      context.push(
+                        "/morePostScreen",
+                        extra: '猫の里親探し',
+                      );
+                    },
+                    isMoreList: true,
+                  );
+                },
               ),
               Gap(mq.height * .005),
               HomeHorizontalListWidget(categoryId: Categories.cat.toInt()),
               Gap(mq.height * .02),
-              MoreList(
-                title: '鳥の里親探し',
-                onTap: () {},
-                isMoreList: true,
+              Consumer(
+                builder: (context, ref, child) {
+                  return MoreList(
+                    title: '鳥の里親探し',
+                    onTap: () {
+                      ref
+                          .read(selectMorePostIdProvider.notifier)
+                          .setPostId(Categories.bird.toInt());
+                      context.push(
+                        "/morePostScreen",
+                        extra: '鳥の里親探し',
+                      );
+                    },
+                    isMoreList: true,
+                  );
+                },
               ),
               Gap(mq.height * .005),
               HomeHorizontalListWidget(categoryId: Categories.bird.toInt()),

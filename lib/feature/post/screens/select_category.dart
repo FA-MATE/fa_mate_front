@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:fa_mate_front/common/constant/app_icons.dart';
+import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
 import 'package:fa_mate_front/feature/post/provider/post_selected_category.dart';
 import 'package:fa_mate_front/feature/post/provider/post_upload_provider.dart';
 import 'package:fa_mate_front/init_models/tags/tags_model.dart';
@@ -20,7 +19,6 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.1,
@@ -39,7 +37,6 @@ class SelectCategory extends StatelessWidget {
         title: Consumer(
           builder: (context, ref, child) {
             final title = ref.watch(postSelectedCategoryNameProvider);
-            log(title);
             return Text(title);
           },
         ),
@@ -58,7 +55,11 @@ class SelectCategory extends StatelessWidget {
                 // dynamic model = ref.read(postUploadModelProvider);
                 // model.categoryId = selectCategory.toList()[index].categoryId;
 
-                return GestureDetector(
+                return ListTile(
+                  trailing: const Icon(AppIcons.arrowRight),
+                  visualDensity: const VisualDensity(vertical: -4),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: mq.width * .06),
                   onTap: () {
                     switch (title) {
                       case "カテゴリ":
@@ -92,7 +93,6 @@ class SelectCategory extends StatelessWidget {
                       case "年齢":
                         List<TagsModel>? editModel =
                             postUtil.tagCheck(model, Tags.age.toInt());
-                        log(editModel.toString());
 
                         ref.read(postUploadProvider.notifier).setData(model
                                 .copyWith(tags: [
@@ -104,14 +104,9 @@ class SelectCategory extends StatelessWidget {
                       default:
                     }
                   },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.width * .02,
-                    ),
-                    child: Text(
-                      selectCategory.toList()[index].name,
-                    ),
-                  ),
+                  title: TextDefaultWidget(
+                      textAlign: TextAlign.left,
+                      title: selectCategory.toList()[index].name),
                 );
               },
             );

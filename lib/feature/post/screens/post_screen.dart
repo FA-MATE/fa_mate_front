@@ -1,7 +1,6 @@
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
-import 'package:fa_mate_front/common/widgets/top_title_widget.dart';
 import 'package:fa_mate_front/feature/post/provider/post_upload_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_category_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_hint_widget.dart';
@@ -23,14 +22,16 @@ class PostScreen extends ConsumerWidget {
     final postUtils = PostUtils();
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size(double.infinity, mq.height * .05),
-          child: const TopTitleWidget(
-            widget: Text("投稿"),
-            alignment: Alignment.center,
-          ),
-        ),
-        elevation: 0,
+        // bottom: PreferredSize(
+        //   preferredSize: Size(double.infinity, mq.height * .05),
+        //   child: const TopTitleWidget(
+        //     widget: Text("投稿"),
+        //     alignment: Alignment.center,
+        //   ),
+        // ),
+        elevation: 0.2,
+        backgroundColor: AppColors.white,
+        shadowColor: AppColors.black,
         centerTitle: true,
         title: const Text("ペットの里親お探し"),
         actions: [
@@ -53,7 +54,7 @@ class PostScreen extends ConsumerWidget {
                   const TextDefaultWidget(
                     title: '譲ります',
                     fontColor: AppColors.black,
-                    fontSize: 10,
+                    fontSize: 20,
                     textAlign: TextAlign.start,
                   ),
                   Gap(mq.height * .02),

@@ -9,6 +9,9 @@ class PostUploadConfirmScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(postUploadProvider);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("内容確認"),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

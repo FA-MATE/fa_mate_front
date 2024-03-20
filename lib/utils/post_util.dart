@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:fa_mate_front/feature/post/models/post_upload_model.dart';
 import 'package:fa_mate_front/init_models/conditions/condition_groups_model.dart';
 import 'package:fa_mate_front/init_models/conditions/conditions_model.dart';
@@ -55,11 +54,17 @@ class PostUtils {
             ?.indexWhere((tag) => tag.tagGroup.id == tagGroupId) ??
         -1;
     if (index != -1) {
-      log("util!! : $index");
       return index;
     } else {
       return null;
     }
+  }
+
+  String searchCategoryName(dynamic list, int categoryId) {
+    String result = "";
+    result = list.firstWhere((data) => data.id == categoryId).name;
+
+    return result;
   }
 
   PostUploadModel initUploadTagConditions(int categoryId) {
