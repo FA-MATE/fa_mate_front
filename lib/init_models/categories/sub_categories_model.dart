@@ -8,6 +8,7 @@ class SubCategoriesModel with _$SubCategoriesModel {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory SubCategoriesModel({
     required int id,
+    required int categoryId,
     required String name,
     required int orderNo,
   }) = _SubCategoriesModel;

@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:fa_mate_front/common/models/tag_model.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
 import 'package:fa_mate_front/init_models/init_model.dart';
+import 'package:fa_mate_front/init_models/tags/tags_model.dart';
 
 //SingleTone DataSource
 class DataSource {
@@ -21,44 +20,44 @@ class DataSource {
 
   Dio dio = Dio(BaseOptions(baseUrl: "https://fa-mate-rails.onrender.com/"));
 //** Tag  */
-  Future<List<TagListModel>> getTagList() async {
+  Future<List<TagsModel>> getTagList() async {
     try {
       Response res = await dio.get('tags.json');
-      List<TagListModel> tags = [];
+      List<TagsModel> tags = [];
       if (res.statusCode == 200) {
         for (var tag in res.data) {
-          tags.add(TagListModel.fromJson(tag));
+          tags.add(TagsModel.fromJson(tag));
         }
 
         return tags;
       } else {
-        return <TagListModel>[];
+        return <TagsModel>[];
       }
     } catch (e) {
       Exception(e);
     } finally {
       // dio.close();
     }
-    return <TagListModel>[];
+    return <TagsModel>[];
   }
 
   Future<dynamic> getTag(int tagId) async {
     try {
       Response res = await dio.get('tags/$tagId.json');
-      late TagListModel tag;
+      late TagsModel tag;
       if (res.statusCode == 200) {
-        tag = TagListModel.fromJson(res.data);
+        tag = TagsModel.fromJson(res.data);
 
         return tag;
       } else {
-        return TagListModel;
+        return TagsModel;
       }
     } catch (e) {
       Exception(e);
     } finally {
       // dio.close();
     }
-    return TagListModel;
+    return TagsModel;
   }
 
   Future<List<HomePostListModel>> getPostList() async {
@@ -69,8 +68,6 @@ class DataSource {
         for (var data in res.data) {
           postList.add(HomePostListModel.fromJson(data));
         }
-
-        log(postList.length.toString());
 
         return postList;
       } else {
@@ -101,17 +98,17 @@ class DataSource {
     throw ();
   }
 
-  Future<List<HomePostListModel>> getPostJoinCategory(int categoryId) async {
+  Future<List<HomePostListModel>> getPostJoinCategory(
+      int categoryId, int count) async {
     try {
       Response res =
-          await dio.get("posts.json?per=10&page=1&category_id=$categoryId");
+          await dio.get("posts.json?per=$count&page=1&category_id=$categoryId");
       List<HomePostListModel> postList = [];
       if (res.statusCode == 200) {
         for (var data in res.data) {
           postList.add(HomePostListModel.fromJson(data));
         }
-
-        return postList;
+        return postList.reversed.toList();
       } else {
         return <HomePostListModel>[];
       }
@@ -133,7 +130,6 @@ class DataSource {
       }
     } catch (e) {
       // Handle other exceptions
-      log(e.toString());
       throw Exception("Error!!!!!!!!!!!!!: $e");
     }
   }

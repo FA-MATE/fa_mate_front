@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/tag_widget.dart';
 import 'package:fa_mate_front/feature/home/provider/home_post_list_provider.dart';
@@ -20,10 +19,10 @@ class HomeHorizontalListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    log("build");
     mq = MediaQuery.of(context).size;
-    final getPostDataList =
-        ref.watch(getPostCategoryListProvider(categoryId: categoryId));
+    final getPostDataList = ref.watch(
+      getPostCategoryListProvider(categoryId: categoryId, count: 10),
+    );
     final cachedTags = ref.watch(getTagsProvider);
     List<TagsModel> tagList = [];
 

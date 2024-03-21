@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/constant/app_icons.dart';
@@ -236,7 +234,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               },
               data: (data) {
                 List<Map<String, dynamic>> images = [];
-                for (var image in data.postImages) {
+                for (var image in data.postImages!) {
                   if (image["image_url"] != null) {
                     images.add(image);
                   }
@@ -244,7 +242,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 final postTags = data.tags;
                 //** 該当投稿に含まれているTagを返す */
                 tagList =
-                    postUtils.findTag(tags: postTags, cachedTags: cachedTags);
+                    postUtils.findTag(tags: postTags!, cachedTags: cachedTags);
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,7 +266,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: images[index % images.length]
                                       ["image_url"],
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                   placeholder: (context, url) => Center(
                                     child: Shimmer.fromColors(
                                         baseColor: Colors.grey,
@@ -317,10 +315,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextDefaultWidget(
-                                title: data.title,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                              Flexible(
+                                child: TextDefaultWidget(
+                                  textAlign: TextAlign.left,
+                                  maxLines: 2,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  title: data.title,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Row(
                                 children: [
@@ -383,7 +386,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
                           ),
-                          ...data.conditions.map(
+                          ...data.conditions!.map(
                             (e) {
                               return TextDefaultWidget(
                                 title: "• ${e["id"]}",

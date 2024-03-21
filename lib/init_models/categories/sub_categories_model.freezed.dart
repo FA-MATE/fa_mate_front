@@ -21,6 +21,7 @@ SubCategoriesModel _$SubCategoriesModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SubCategoriesModel {
   int get id => throw _privateConstructorUsedError;
+  int get categoryId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   int get orderNo => throw _privateConstructorUsedError;
 
@@ -36,7 +37,7 @@ abstract class $SubCategoriesModelCopyWith<$Res> {
           SubCategoriesModel value, $Res Function(SubCategoriesModel) then) =
       _$SubCategoriesModelCopyWithImpl<$Res, SubCategoriesModel>;
   @useResult
-  $Res call({int id, String name, int orderNo});
+  $Res call({int id, int categoryId, String name, int orderNo});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$SubCategoriesModelCopyWithImpl<$Res, $Val extends SubCategoriesModel>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryId = null,
     Object? name = null,
     Object? orderNo = null,
   }) {
@@ -60,6 +62,10 @@ class _$SubCategoriesModelCopyWithImpl<$Res, $Val extends SubCategoriesModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -81,7 +87,7 @@ abstract class _$$SubCategoriesModelImplCopyWith<$Res>
       __$$SubCategoriesModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, int orderNo});
+  $Res call({int id, int categoryId, String name, int orderNo});
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ class __$$SubCategoriesModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryId = null,
     Object? name = null,
     Object? orderNo = null,
   }) {
@@ -103,6 +110,10 @@ class __$$SubCategoriesModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -121,7 +132,10 @@ class __$$SubCategoriesModelImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$SubCategoriesModelImpl implements _SubCategoriesModel {
   const _$SubCategoriesModelImpl(
-      {required this.id, required this.name, required this.orderNo});
+      {required this.id,
+      required this.categoryId,
+      required this.name,
+      required this.orderNo});
 
   factory _$SubCategoriesModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubCategoriesModelImplFromJson(json);
@@ -129,13 +143,15 @@ class _$SubCategoriesModelImpl implements _SubCategoriesModel {
   @override
   final int id;
   @override
+  final int categoryId;
+  @override
   final String name;
   @override
   final int orderNo;
 
   @override
   String toString() {
-    return 'SubCategoriesModel(id: $id, name: $name, orderNo: $orderNo)';
+    return 'SubCategoriesModel(id: $id, categoryId: $categoryId, name: $name, orderNo: $orderNo)';
   }
 
   @override
@@ -144,13 +160,15 @@ class _$SubCategoriesModelImpl implements _SubCategoriesModel {
         (other.runtimeType == runtimeType &&
             other is _$SubCategoriesModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.orderNo, orderNo) || other.orderNo == orderNo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, orderNo);
+  int get hashCode => Object.hash(runtimeType, id, categoryId, name, orderNo);
 
   @JsonKey(ignore: true)
   @override
@@ -170,6 +188,7 @@ class _$SubCategoriesModelImpl implements _SubCategoriesModel {
 abstract class _SubCategoriesModel implements SubCategoriesModel {
   const factory _SubCategoriesModel(
       {required final int id,
+      required final int categoryId,
       required final String name,
       required final int orderNo}) = _$SubCategoriesModelImpl;
 
@@ -178,6 +197,8 @@ abstract class _SubCategoriesModel implements SubCategoriesModel {
 
   @override
   int get id;
+  @override
+  int get categoryId;
   @override
   String get name;
   @override

@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'post_category_provider.dart';
+part of 'more_post_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$postUploadCategoryIndexHash() =>
-    r'a955e66c108aed7056bc62a9398bd3d2da6631f1';
+String _$selectMorePostIdHash() => r'669d522eb5629a819007b20f2109917a774897e3';
 
-/// See also [PostUploadCategoryIndex].
-@ProviderFor(PostUploadCategoryIndex)
-final postUploadCategoryIndexProvider =
-    NotifierProvider<PostUploadCategoryIndex, int>.internal(
-  PostUploadCategoryIndex.new,
-  name: r'postUploadCategoryIndexProvider',
+/// See also [SelectMorePostId].
+@ProviderFor(SelectMorePostId)
+final selectMorePostIdProvider =
+    NotifierProvider<SelectMorePostId, int>.internal(
+  SelectMorePostId.new,
+  name: r'selectMorePostIdProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$postUploadCategoryIndexHash,
+      : _$selectMorePostIdHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PostUploadCategoryIndex = Notifier<int>;
+typedef _$SelectMorePostId = Notifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

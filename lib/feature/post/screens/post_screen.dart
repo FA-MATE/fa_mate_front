@@ -1,11 +1,12 @@
 import 'package:fa_mate_front/common/constant/app_colors.dart';
 import 'package:fa_mate_front/common/widgets/custom_noti_icon_widget.dart';
 import 'package:fa_mate_front/common/widgets/text_default_widget.dart';
-import 'package:fa_mate_front/common/widgets/top_title_widget.dart';
+import 'package:fa_mate_front/feature/post/provider/post_upload_provider.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_category_widget.dart';
 import 'package:fa_mate_front/feature/post/widgets/post_hint_widget.dart';
 import 'package:fa_mate_front/main.dart';
 import 'package:fa_mate_front/utils/enum.dart';
+import 'package:fa_mate_front/utils/post_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -18,17 +19,19 @@ class PostScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     mq = MediaQuery.of(context).size;
-
+    final postUtils = PostUtils();
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size(double.infinity, mq.height * .05),
-          child: const TopTitleWidget(
-            widget: Text("投稿"),
-            alignment: Alignment.center,
-          ),
-        ),
-        elevation: 0,
+        // bottom: PreferredSize(
+        //   preferredSize: Size(double.infinity, mq.height * .05),
+        //   child: const TopTitleWidget(
+        //     widget: Text("投稿"),
+        //     alignment: Alignment.center,
+        //   ),
+        // ),
+        elevation: 0.2,
+        backgroundColor: AppColors.white,
+        shadowColor: AppColors.black,
         centerTitle: true,
         title: const Text("ペットの里親お探し"),
         actions: [
@@ -51,7 +54,7 @@ class PostScreen extends ConsumerWidget {
                   const TextDefaultWidget(
                     title: '譲ります',
                     fontColor: AppColors.black,
-                    fontSize: 10,
+                    fontSize: 20,
                     textAlign: TextAlign.start,
                   ),
                   Gap(mq.height * .02),
@@ -61,8 +64,12 @@ class PostScreen extends ConsumerWidget {
                     children: [
                       PostCategoryWidget(
                         onTap: () {
-                          context.push("/postUploadDetail",
-                              extra: Categories.dog.toInt());
+                          ref.read(postUploadProvider.notifier).setData(
+                              postUtils.initUploadTagConditions(
+                                  Categories.dog.toInt()));
+                          context.push(
+                            "/postUploadDetail",
+                          );
                         },
                         title: "イヌ",
                         icon: Iconsax.pet,
@@ -70,8 +77,13 @@ class PostScreen extends ConsumerWidget {
                       Gap(mq.height * .02),
                       PostCategoryWidget(
                         onTap: () {
-                          context.push("/postUploadDetail",
-                              extra: Categories.cat.toInt());
+                          ref.read(postUploadProvider.notifier).setData(
+                                postUtils.initUploadTagConditions(
+                                    Categories.cat.toInt()),
+                              );
+                          context.push(
+                            "/postUploadDetail",
+                          );
                         },
                         title: "ネコ",
                         icon: Iconsax.add_square,
@@ -79,8 +91,13 @@ class PostScreen extends ConsumerWidget {
                       Gap(mq.height * .02),
                       PostCategoryWidget(
                         onTap: () {
-                          context.push("/postUploadDetail",
-                              extra: Categories.bird.toInt());
+                          ref.read(postUploadProvider.notifier).setData(
+                                postUtils.initUploadTagConditions(
+                                    Categories.bird.toInt()),
+                              );
+                          context.push(
+                            "/postUploadDetail",
+                          );
                         },
                         title: "トリ",
                         icon: Iconsax.add_square,

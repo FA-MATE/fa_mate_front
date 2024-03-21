@@ -22,7 +22,7 @@ final getPostListProvider = AutoDisposeAsyncNotifierProvider<GetPostList,
 
 typedef _$GetPostList = AutoDisposeAsyncNotifier<List<HomePostListModel>>;
 String _$getPostCategoryListHash() =>
-    r'523d27d3c2e1f848735f3afb54772fcb735bae6f';
+    r'97f5bae090d2ba777c9c1fa6f81fb5dbab259ad4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,9 +48,11 @@ class _SystemHash {
 abstract class _$GetPostCategoryList
     extends BuildlessAutoDisposeAsyncNotifier<List<HomePostListModel>> {
   late final int? categoryId;
+  late final int? count;
 
   FutureOr<List<HomePostListModel>> build({
     int? categoryId,
+    int? count,
   });
 }
 
@@ -67,9 +69,11 @@ class GetPostCategoryListFamily
   /// See also [GetPostCategoryList].
   GetPostCategoryListProvider call({
     int? categoryId,
+    int? count,
   }) {
     return GetPostCategoryListProvider(
       categoryId: categoryId,
+      count: count,
     );
   }
 
@@ -79,6 +83,7 @@ class GetPostCategoryListFamily
   ) {
     return call(
       categoryId: provider.categoryId,
+      count: provider.count,
     );
   }
 
@@ -103,8 +108,11 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
   /// See also [GetPostCategoryList].
   GetPostCategoryListProvider({
     int? categoryId,
+    int? count,
   }) : this._internal(
-          () => GetPostCategoryList()..categoryId = categoryId,
+          () => GetPostCategoryList()
+            ..categoryId = categoryId
+            ..count = count,
           from: getPostCategoryListProvider,
           name: r'getPostCategoryListProvider',
           debugGetCreateSourceHash:
@@ -115,6 +123,7 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
           allTransitiveDependencies:
               GetPostCategoryListFamily._allTransitiveDependencies,
           categoryId: categoryId,
+          count: count,
         );
 
   GetPostCategoryListProvider._internal(
@@ -125,9 +134,11 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.categoryId,
+    required this.count,
   }) : super.internal();
 
   final int? categoryId;
+  final int? count;
 
   @override
   FutureOr<List<HomePostListModel>> runNotifierBuild(
@@ -135,6 +146,7 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
   ) {
     return notifier.build(
       categoryId: categoryId,
+      count: count,
     );
   }
 
@@ -143,13 +155,16 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
     return ProviderOverride(
       origin: this,
       override: GetPostCategoryListProvider._internal(
-        () => create()..categoryId = categoryId,
+        () => create()
+          ..categoryId = categoryId
+          ..count = count,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         categoryId: categoryId,
+        count: count,
       ),
     );
   }
@@ -163,13 +178,15 @@ class GetPostCategoryListProvider extends AutoDisposeAsyncNotifierProviderImpl<
   @override
   bool operator ==(Object other) {
     return other is GetPostCategoryListProvider &&
-        other.categoryId == categoryId;
+        other.categoryId == categoryId &&
+        other.count == count;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, categoryId.hashCode);
+    hash = _SystemHash.combine(hash, count.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -179,6 +196,9 @@ mixin GetPostCategoryListRef
     on AutoDisposeAsyncNotifierProviderRef<List<HomePostListModel>> {
   /// The parameter `categoryId` of this provider.
   int? get categoryId;
+
+  /// The parameter `count` of this provider.
+  int? get count;
 }
 
 class _GetPostCategoryListProviderElement
@@ -188,6 +208,8 @@ class _GetPostCategoryListProviderElement
 
   @override
   int? get categoryId => (origin as GetPostCategoryListProvider).categoryId;
+  @override
+  int? get count => (origin as GetPostCategoryListProvider).count;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

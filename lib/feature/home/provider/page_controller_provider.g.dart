@@ -23,7 +23,7 @@ final homePageControllerProvider =
 );
 
 typedef _$HomePageController = AutoDisposeNotifier<PageController>;
-String _$curruntIndexHash() => r'539c818a0dd23dd42d2de42a8885e656c223a14a';
+String _$curruntIndexHash() => r'6aca960475ca0a39a202fd1f0b0038838c354c7e';
 
 /// See also [CurruntIndex].
 @ProviderFor(CurruntIndex)

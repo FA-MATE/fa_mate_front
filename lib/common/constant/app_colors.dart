@@ -10,4 +10,5 @@ class AppColors {
   static const black = Color(0xff000000);
   static const tag = Color(0xffF5E6BD);
   static const red = Color(0xffFF0000);
+  static const green = Color(0xff318f23);
 }

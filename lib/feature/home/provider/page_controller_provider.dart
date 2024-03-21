@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'page_controller_provider.g.dart';
@@ -28,7 +27,6 @@ class CurruntIndex extends _$CurruntIndex {
   @override
   int build() {
     ref.onDispose(() {
-      log("dispose currentIdnex");
       timer?.cancel();
     });
     autoMovePage();
