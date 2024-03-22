@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:fa_mate_front/feature/home/models/home_post_list_model.dart';
 import 'package:fa_mate_front/feature/post/models/post_detail_model.dart';
@@ -101,18 +104,20 @@ class DataSource {
   Future<List<HomePostListModel>> getPostJoinCategory(
       int categoryId, int count) async {
     try {
-      Response res =
-          await dio.get("posts.json?per=$count&page=1&category_id=$categoryId");
+      Response res = await dio
+          .get("posts.json?per=$count&page=1&category_id=$categoryId")
+          .timeout(const Duration(seconds: 30));
       List<HomePostListModel> postList = [];
       if (res.statusCode == 200) {
         for (var data in res.data) {
           postList.add(HomePostListModel.fromJson(data));
         }
-        return postList.reversed.toList();
+        return postList;
       } else {
         return <HomePostListModel>[];
       }
-    } catch (e) {
+    } on TimeoutException catch (e) {
+      log("Timeout");
       Exception(e);
     } finally {
       // dio.close();

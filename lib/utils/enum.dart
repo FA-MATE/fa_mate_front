@@ -6,11 +6,11 @@ enum Categories {
   int toInt() {
     switch (this) {
       case dog:
-        return 7;
+        return 1;
       case cat:
-        return 8;
+        return 2;
       case bird:
-        return 9;
+        return 3;
       default:
         return -1;
     }
@@ -25,11 +25,11 @@ enum Requirements {
   int toInto() {
     switch (this) {
       case age:
-        return 7;
+        return 1;
       case residence:
-        return 8;
+        return 2;
       case afterCare:
-        return 9;
+        return 3;
       default:
         return -1;
     }
@@ -45,13 +45,13 @@ enum Tags {
   int toInt() {
     switch (this) {
       case region:
-        return 9;
+        return 1;
       case age:
-        return 10;
+        return 2;
       case gender:
-        return 11;
+        return 3;
       case inoculation:
-        return 12;
+        return 4;
       default:
         return -1;
     }
